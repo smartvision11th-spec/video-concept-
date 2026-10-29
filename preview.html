@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>IRON FITNESS // Architectural Strength Sanctuary</title>
+  <meta name="description" content="Architectural strength culture engineered for uncompromised physiological mastery and lifelong athletic durability." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0e0e0e; }
+    ::-webkit-scrollbar-thumb { background: #2a2a2a; }
+    ::-webkit-scrollbar-thumb:hover { background: #b58a58; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .luxury-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(181, 138, 88, 0.4);
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#eebe87",
+            "primary-container": "#b58a58",
+            "primary-fixed": "#ffddb9",
+            "on-primary": "#472a01",
+            "on-primary-container": "#402500",
+            "surface-container-lowest": "#0e0e0e",
+            "surface-container-low": "#1c1b1b",
+            "surface-container": "#201f1f",
+            "surface-container-high": "#2a2a2a",
+            "surface-container-highest": "#353534",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#d3c4b6",
+            "outline": "#9c8e82",
+            "outline-variant": "#4f453a",
+          },
+          fontFamily: {
+            "headline-lg": ["Oswald", "sans-serif"],
+            "headline-md": ["Oswald", "sans-serif"],
+            "headline-sm": ["Oswald", "sans-serif"],
+            "display-xl": ["Oswald", "sans-serif"],
+            "display-lg": ["Oswald", "sans-serif"],
+            "body-lg": ["Manrope", "sans-serif"],
+            "body-md": ["Manrope", "sans-serif"],
+            "body-sm": ["Manrope", "sans-serif"],
+            "label-lg": ["Manrope", "sans-serif"],
+            "label-md": ["Manrope", "sans-serif"],
+            "label-sm": ["Manrope", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container-high">
+    <div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
+      
+      <a href="#" class="flex items-center gap-4 flex-shrink-0 group">
+        <div class="w-9 h-9 rounded-sm bg-primary flex items-center justify-center font-display-xl font-bold text-on-primary text-xl">
+          IF
+        </div>
+        <span class="font-headline-sm text-lg sm:text-xl uppercase tracking-widest text-on-surface border-l border-outline-variant pl-4 font-semibold group-hover:text-primary transition-colors">
+          IRON FITNESS
+        </span>
+      </a>
+
+      <nav class="hidden xl:flex items-center gap-8 h-full">
+        <a class="font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary hover:border-b-2 hover:border-primary transition-all py-2 font-medium" href="#philosophy">PHILOSOPHY</a>
+        <a class="font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary hover:border-b-2 hover:border-primary transition-all py-2 font-medium" href="#disciplines">DISCIPLINES</a>
+        <a class="font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary hover:border-b-2 hover:border-primary transition-all py-2 font-medium" href="#facility">FACILITY</a>
+        <a class="font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary hover:border-b-2 hover:border-primary transition-all py-2 font-medium" href="#membership">MEMBERSHIP</a>
+        <a class="font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary hover:border-b-2 hover:border-primary transition-all py-2 font-medium" href="#testimonials">TESTIMONIALS</a>
+      </nav>
+
+      <div class="flex items-center gap-5 flex-shrink-0">
+        <button onclick="openPortalModal()" class="hidden md:inline-block font-label-lg text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors font-semibold">
+          MEMBER PORTAL
+        </button>
+        <button onclick="openIntakeModal('membership', 'Performance')" class="hidden sm:inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs uppercase tracking-wider px-5 py-2.5 transition-all font-bold border border-primary-container hover:border-primary shadow-sm active:scale-95">
+          <span class="material-symbols-outlined mr-2 text-[16px]">north_east</span>
+          START YOUR JOURNEY
+        </button>
+        <button onclick="openPortalModal()" class="w-9 h-9 rounded-full bg-primary hover:scale-105 active:scale-95 flex items-center justify-center transition-transform" title="Athlete Portal">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-0 bg-surface-container-lowest min-h-screen">
+    
+    <!-- ==================== HERO SECTION (SCROLL-DRIVEN VIDEO FRAME PLAYER) ==================== -->
+    <section id="heroTrack" class="relative w-full bg-surface-container-lowest" style="height: 340vh;">
+      <div class="sticky top-0 h-screen w-full overflow-hidden bg-[#0e0e0e]">
+        
+        <!-- DYNAMIC MORPHING VIDEO CANVAS CONTAINER -->
+        <div id="videoContainer" class="absolute overflow-hidden z-20 transition-shadow duration-300 border-0" style="left:0px; top:0px; width:100vw; height:100vh; border-radius:0px;">
+          <canvas id="heroCanvas" class="w-full h-full block bg-[#0e0e0e] object-cover"></canvas>
+          
+          <!-- DOCKED BADGE (Appears when video docks into left corner) -->
+          <div id="videoDockBadge" class="absolute inset-0 flex flex-col justify-between p-3.5 pointer-events-none opacity-0 transition-opacity duration-300">
+            <div class="flex items-center justify-between">
+              <span class="bg-[#0e0e0e]/90 text-primary font-mono text-[10px] tracking-widest px-2.5 py-1 border border-primary-container/60 uppercase flex items-center gap-1.5 font-bold">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse inline-block"></span>
+                REC // 01:81 MOTION
+              </span>
+              <span class="bg-[#0e0e0e]/90 text-on-surface-variant font-mono text-[10px] px-2 py-0.5 border border-surface-container-high">
+                181 FRAMES
+              </span>
+            </div>
+            <div class="flex items-center justify-between pointer-events-auto">
+              <span class="text-[11px] font-label-sm uppercase tracking-widest text-primary font-semibold drop-shadow-md">
+                BARBELL SNATCH VECTOR
+              </span>
+              <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="bg-primary-container hover:bg-primary text-on-primary-container font-label-sm text-[10px] uppercase tracking-widest px-2.5 py-1 font-bold flex items-center gap-1 transition-colors shadow-md">
+                <span class="material-symbols-outlined text-[14px]">replay</span>
+                REPLAY
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 1: INITIAL SCROLL HINT (ZERO TEXT VISIBLE) -->
+        <div id="scrollHint" class="absolute inset-x-0 bottom-12 z-30 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-300">
+          <div class="flex flex-col items-center gap-3">
+            <span class="font-label-lg text-xs uppercase tracking-[0.35em] text-primary font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] flex items-center gap-2">
+              <span class="w-2 h-2 bg-primary animate-ping inline-block"></span>
+              SCROLL TO COMMENCE // DISCIPLINE IN MOTION
+            </span>
+            <div class="w-5 h-9 rounded-full border-2 border-primary/70 flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
+              <div class="w-1.5 h-2.5 bg-primary rounded-full animate-bounce"></div>
+            </div>
+            <span id="frameCounterText" class="font-mono text-[10px] text-outline tracking-widest">
+              FRAME 001 / 181
+            </span>
+          </div>
+        </div>
+
+        <!-- PHASE 2: HERO TEXT CLUSTER & TELEMETRY STRIP -->
+        <div class="relative z-20 max-w-7xl w-full h-full mx-auto px-6 lg:px-12 flex flex-col justify-between pt-24 pb-8 pointer-events-none">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1">
+            <div class="lg:col-span-5 hidden lg:block" aria-hidden="true"></div>
+            
+            <div id="heroTextCluster" class="lg:col-span-7 space-y-6 pt-4 lg:pt-0 opacity-0 pointer-events-none transition-all duration-300" style="transform: translateX(40px);">
+              <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 bg-primary-container inline-block animate-pulse"></span>
+                <p class="font-label-lg text-xs tracking-[0.25em] text-primary uppercase font-semibold">
+                  EST. 2018 // HIGH-PERFORMANCE SANCTUARY
+                </p>
+              </div>
+
+              <div>
+                <h1 class="font-display-xl text-4xl sm:text-6xl lg:text-8xl uppercase text-on-surface tracking-tight leading-[0.92] mb-6 font-bold">
+                  BUILT THROUGH<br/>
+                  <span class="text-primary-container tracking-wider">DISCIPLINE.</span>
+                </h1>
+                <p class="font-body-lg text-sm sm:text-base lg:text-lg text-on-surface-variant max-w-xl font-light tracking-wide mb-8 leading-relaxed">
+                  Train with purpose. Build strength. Become harder to stop. Architectural strength culture engineered for uncompromised physiological mastery and lifelong athletic durability.
+                </p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
+                <button onclick="openIntakeModal('membership', 'Performance')" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 font-bold shadow-lg">
+                  START YOUR JOURNEY
+                  <span class="material-symbols-outlined ml-2 text-[18px]">north_east</span>
+                </button>
+                <a class="inline-flex items-center justify-center bg-transparent hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 border border-outline-variant hover:border-primary-container transition-all duration-200 font-medium" href="#facility">
+                  EXPLORE THE FACILITY
+                  <span class="material-symbols-outlined ml-2 text-[18px]">arrow_downward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Telemetry Strip -->
+          <div id="telemetryStrip" class="w-full bg-surface-container-low/90 backdrop-blur-md border border-surface-container-high mt-6 opacity-0 pointer-events-none transition-all duration-300" style="transform: translateY(30px);">
+            <div class="px-6 lg:px-8 py-4 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-on-surface font-semibold tracking-wider">12,000 SQ FT</span>
+                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Architectural Facility</span>
+              </div>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-primary font-semibold tracking-wider">1 : 4</span>
+                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Coach to Athlete Ratio</span>
+              </div>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-on-surface font-semibold tracking-wider">100%</span>
+                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Calibrated Equipment</span>
+              </div>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-primary font-semibold tracking-wider">24 / 7</span>
+                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Biometric Keycard Access</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 01: ETHOS & MANIFESTO ==================== -->
+    <section class="reveal w-full bg-surface-container-lowest py-24 lg:py-32 border-b border-surface-container-high" id="philosophy">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div class="lg:col-span-5 space-y-6">
+            <div class="inline-flex items-center gap-2 text-primary font-label-md text-xs uppercase tracking-[0.2em] font-semibold">
+              <span class="w-1.5 h-1.5 bg-primary"></span>
+              [ 01 / ETHOS ]
+            </div>
+            <h2 class="font-display-lg text-4xl sm:text-5xl lg:text-6xl uppercase text-on-surface tracking-tight leading-none font-bold">
+              STRENGTH<br/>IS EARNED.
+            </h2>
+            <div class="w-16 h-1 bg-primary-container"></div>
+            <p class="font-body-sm text-xs sm:text-sm text-outline uppercase tracking-widest pt-2">
+              Zero mirrors. Zero shortcuts. Pure mechanical truth.
+            </p>
+          </div>
+          <div class="lg:col-span-7 space-y-8">
+            <p class="font-body-lg text-base sm:text-lg text-on-surface leading-relaxed font-light">
+              True physical resilience is forged in silence and sustained by relentless consistency. At IRON, we strip away the noise of modern fitness fads to return to uncompromised mechanical mastery, calibrated periodization, and unapologetic physical effort.
+            </p>
+            <div class="p-6 sm:p-8 bg-surface-container-low border-l-2 border-primary-container space-y-4">
+              <p class="font-body-md text-sm sm:text-base text-on-surface-variant italic leading-relaxed">
+                "We do not build our sanctuary to entertain. We build it to endure. Every barbell knurling, rubber platform, and recovery protocol is calibrated to remove friction between human will and structural hypertrophy."
+              </p>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-surface-container-high gap-2">
+                <div>
+                  <p class="font-headline-sm text-base uppercase text-on-surface tracking-wider font-semibold">MARCUS V. ROTH</p>
+                  <p class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-medium">Head Director of Athletic Performance // CSCS*D</p>
+                </div>
+                <span class="font-headline-md text-xs sm:text-sm tracking-widest text-outline-variant font-mono">01 // PROTOCOL</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+              <div class="space-y-2 border-t border-surface-container-high pt-4">
+                <span class="font-headline-sm text-lg text-primary uppercase font-bold tracking-wider block">01. GRAVITY</span>
+                <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">The iron never lies. Unbroken feedback loops calibrate posture and power output.</p>
+              </div>
+              <div class="space-y-2 border-t border-surface-container-high pt-4">
+                <span class="font-headline-sm text-lg text-primary uppercase font-bold tracking-wider block">02. METRIC</span>
+                <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">Every load recorded. Velocity transducers track barbell speed down to millimeters per second.</p>
+              </div>
+              <div class="space-y-2 border-t border-surface-container-high pt-4">
+                <span class="font-headline-sm text-lg text-primary uppercase font-bold tracking-wider block">03. LONGEVITY</span>
+                <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">Structural durability over fleeting exhaustion. Tendon health prioritised alongside peak force.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 02: DISCIPLINES ==================== -->
+    <section class="reveal w-full bg-surface-container-low py-24 lg:py-32 border-b border-surface-container-high" id="disciplines">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block mb-3 font-semibold">
+              [ 02 / METHODOLOGY ] // CORE DISCIPLINES
+            </span>
+            <h2 class="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-on-surface tracking-tight font-bold">
+              CALIBRATED TRAINING VECTORS
+            </h2>
+          </div>
+          <p class="font-body-md text-sm sm:text-base text-on-surface-variant max-w-md font-light">
+            Three scientifically sequenced pathways programmed for absolute force development, neurological adaptation, and metabolic conditioning.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Pillar 01 -->
+          <div class="group relative flex flex-col bg-surface-container-lowest border border-surface-container-high hover:border-primary-container transition-all duration-300 hover:-translate-y-1">
+            <div class="relative h-72 sm:h-80 overflow-hidden bg-surface-container">
+              <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/discipline-strength.jpg')"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
+              <span class="absolute top-4 left-4 bg-surface-container-lowest/90 px-3 py-1 font-label-sm text-[11px] tracking-widest text-primary border border-surface-container-high uppercase font-semibold">PILLAR 01</span>
+            </div>
+            <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+              <div class="space-y-3">
+                <h3 class="font-headline-lg text-xl sm:text-2xl uppercase text-on-surface tracking-wider group-hover:text-primary transition-colors font-semibold">STRENGTH &amp; CONDITIONING</h3>
+                <p class="font-body-md text-sm text-on-surface-variant font-light leading-relaxed">Olympic lifting, heavy barbell periodization, and calibrated velocity-based training protocols engineered for max power generation.</p>
+              </div>
+              <div class="pt-6 border-t border-surface-container-high space-y-4">
+                <div>
+                  <span class="font-label-sm text-[10px] uppercase tracking-widest text-outline block">SPECIFICATION</span>
+                  <p class="font-body-sm text-xs sm:text-sm text-primary font-medium tracking-wide mt-1">3x Weekly Heavy Blocks // Custom Barbell Platforms</p>
+                </div>
+                <button onclick="openIntakeModal('discipline', 'Strength & Conditioning')" class="w-full inline-flex items-center justify-between text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary pt-2 border-t border-surface-container-high/60 font-semibold">
+                  <span>SELECT DISCIPLINE</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pillar 02 -->
+          <div class="group relative flex flex-col bg-surface-container-lowest border border-surface-container-high hover:border-primary-container transition-all duration-300 hover:-translate-y-1">
+            <div class="relative h-72 sm:h-80 overflow-hidden bg-surface-container">
+              <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/discipline-coaching.jpg')"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
+              <span class="absolute top-4 left-4 bg-surface-container-lowest/90 px-3 py-1 font-label-sm text-[11px] tracking-widest text-primary border border-surface-container-high uppercase font-semibold">PILLAR 02</span>
+            </div>
+            <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+              <div class="space-y-3">
+                <h3 class="font-headline-lg text-xl sm:text-2xl uppercase text-on-surface tracking-wider group-hover:text-primary transition-colors font-semibold">PERSONAL TRAINING</h3>
+                <p class="font-body-md text-sm text-on-surface-variant font-light leading-relaxed">1-on-1 biomechanical diagnostics, personalized force-curve programming, and clinical-grade nutritional biochemistry oversight.</p>
+              </div>
+              <div class="pt-6 border-t border-surface-container-high space-y-4">
+                <div>
+                  <span class="font-label-sm text-[10px] uppercase tracking-widest text-outline block">SPECIFICATION</span>
+                  <p class="font-body-sm text-xs sm:text-sm text-primary font-medium tracking-wide mt-1">Dedicated Master Coach // Bi-weekly DEXA Diagnostics</p>
+                </div>
+                <button onclick="openIntakeModal('discipline', 'Personal Training')" class="w-full inline-flex items-center justify-between text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary pt-2 border-t border-surface-container-high/60 font-semibold">
+                  <span>SELECT DISCIPLINE</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pillar 03 -->
+          <div class="group relative flex flex-col bg-surface-container-lowest border border-surface-container-high hover:border-primary-container transition-all duration-300 hover:-translate-y-1">
+            <div class="relative h-72 sm:h-80 overflow-hidden bg-surface-container">
+              <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/discipline-functional.jpg')"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
+              <span class="absolute top-4 left-4 bg-surface-container-lowest/90 px-3 py-1 font-label-sm text-[11px] tracking-widest text-primary border border-surface-container-high uppercase font-semibold">PILLAR 03</span>
+            </div>
+            <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+              <div class="space-y-3">
+                <h3 class="font-headline-lg text-xl sm:text-2xl uppercase text-on-surface tracking-wider group-hover:text-primary transition-colors font-semibold">FUNCTIONAL FITNESS</h3>
+                <p class="font-body-md text-sm text-on-surface-variant font-light leading-relaxed">Metabolic conditioning, elite Hyrox simulation, structural balance work, and lactate threshold capacity protocols.</p>
+              </div>
+              <div class="pt-6 border-t border-surface-container-high space-y-4">
+                <div>
+                  <span class="font-label-sm text-[10px] uppercase tracking-widest text-outline block">SPECIFICATION</span>
+                  <p class="font-body-sm text-xs sm:text-sm text-primary font-medium tracking-wide mt-1">Turf Tracks // Concept2 Ergometers // Heavy Sled Work</p>
+                </div>
+                <button onclick="openIntakeModal('discipline', 'Functional Fitness')" class="w-full inline-flex items-center justify-between text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary pt-2 border-t border-surface-container-high/60 font-semibold">
+                  <span>SELECT DISCIPLINE</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 03: ARCHITECTURAL FACILITY ==================== -->
+    <section class="reveal w-full bg-surface-container-lowest py-24 lg:py-32 border-b border-surface-container-high" id="facility">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block mb-3 font-semibold">
+              [ 03 / SANCTUARY ] // ARCHITECTURAL CAPACITY
+            </span>
+            <h2 class="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-on-surface tracking-tight font-bold">
+              BUILT WITHOUT COMPROMISE
+            </h2>
+          </div>
+          <div class="font-label-sm text-xs uppercase tracking-widest text-outline">
+            ST. ANN'S INDUSTRIAL QUARTER // BUILDING 04
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div class="md:col-span-8 group relative bg-surface-container-low border border-surface-container-high hover:border-primary-container overflow-hidden min-h-[460px] flex flex-col justify-end p-8 transition-colors">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/facility-racks.jpg')"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
+            <div class="relative z-10 space-y-2 max-w-lg">
+              <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-semibold">ZONE 01 // MAIN PLATFORM</span>
+              <h3 class="font-headline-lg text-xl sm:text-2xl uppercase text-on-surface font-semibold">ELEIKO CALIBRATED COMPETITION SUITE</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">Swedish competition-grade steel plates calibrated to +/- 10g tolerance, pair with Eleiko IPF powerlifting bars and custom 7-gauge steel rigs.</p>
+            </div>
+          </div>
+
+          <div class="md:col-span-4 group relative bg-surface-container-low border border-surface-container-high hover:border-primary-container overflow-hidden min-h-[460px] flex flex-col justify-end p-8 transition-colors">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/facility-sauna.jpg')"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
+            <div class="relative z-10 space-y-2">
+              <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-semibold">ZONE 02 // THERMAL RECOVERY</span>
+              <h3 class="font-headline-md text-lg sm:text-xl uppercase text-on-surface font-semibold">NORDIC PLUNGE &amp; INFRARED SAUNA</h3>
+              <div class="flex items-center gap-4 pt-2 font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-mono">
+                <span>SAUNA: 85°C</span>
+                <span>//</span>
+                <span class="text-primary font-semibold">PLUNGE: 4°C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-5 group relative bg-surface-container-low border border-surface-container-high hover:border-primary-container overflow-hidden min-h-[380px] flex flex-col justify-end p-8 transition-colors">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/facility-platform.jpg')"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
+            <div class="relative z-10 space-y-2">
+              <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-semibold">ZONE 03 // OLYMPIC ENCLAVE</span>
+              <h3 class="font-headline-md text-lg sm:text-xl uppercase text-on-surface font-semibold">OAK DROP PLATFORMS &amp; CHALK STATIONS</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">Multi-layer shock absorbing rubber subfloors designed for zero ricochet vibration and pristine foot grip.</p>
+            </div>
+          </div>
+
+          <div class="md:col-span-7 group relative bg-surface-container-low border border-surface-container-high hover:border-primary-container overflow-hidden min-h-[380px] flex flex-col justify-end p-8 transition-colors">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('public/facility-biometrics.jpg')"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
+            <div class="relative z-10 space-y-2">
+              <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-semibold">ZONE 04 // BIOMETRIC LAB</span>
+              <h3 class="font-headline-md text-lg sm:text-xl uppercase text-on-surface font-semibold">FORCE PLATE DIAGNOSTICS &amp; DEXA ANALYSIS</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">Dual-plate isometric mid-thigh pull sensors, 3D laser joint tracking, and quarterly DEXA scans providing unvarnished physiological accountability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 04: WHY IRON ==================== -->
+    <section class="reveal w-full bg-surface-container-low py-24 lg:py-32 border-b border-surface-container-high">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="max-w-3xl mb-16">
+          <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block mb-3 font-semibold">STANDARDS &amp; CODE</span>
+          <h2 class="font-display-lg text-4xl sm:text-5xl uppercase text-on-surface tracking-tight leading-none mb-6 font-bold">
+            NO SHORTCUTS.<br/>JUST PROGRESS.
+          </h2>
+          <p class="font-body-lg text-base sm:text-lg text-on-surface-variant font-light leading-relaxed">
+            We reject the mainstream fitness model built on high-churn memberships, crowded lobbies, and superficial trends. Our space is built around a singular philosophy: uncompromising physical capability.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high hover:border-primary-container space-y-6 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1">
+            <div class="space-y-4">
+              <span class="font-headline-md text-xl text-primary font-mono group-hover:tracking-wider transition-all">01 //</span>
+              <h3 class="font-headline-md text-lg uppercase text-on-surface tracking-wider font-semibold">EXPERIENCED COACHING</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant leading-relaxed">Led exclusively by CSCS-certified strength directors and national Olympic medalists. Every movement cue is grounded in functional mechanics, not trends.</p>
+            </div>
+            <div class="h-0.5 w-12 bg-primary-container group-hover:w-20 transition-all duration-300"></div>
+          </div>
+
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high hover:border-primary-container space-y-6 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1">
+            <div class="space-y-4">
+              <span class="font-headline-md text-xl text-primary font-mono group-hover:tracking-wider transition-all">02 //</span>
+              <h3 class="font-headline-md text-lg uppercase text-on-surface tracking-wider font-semibold">STRUCTURED PERIODIZATION</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant leading-relaxed">Programmed 12-week micro and macro cycles calibrated to your specific physiological profile. Progressive overload governed by data to eliminate plateaus.</p>
+            </div>
+            <div class="h-0.5 w-12 bg-primary-container group-hover:w-20 transition-all duration-300"></div>
+          </div>
+
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high hover:border-primary-container space-y-6 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1">
+            <div class="space-y-4">
+              <span class="font-headline-md text-xl text-primary font-mono group-hover:tracking-wider transition-all">03 //</span>
+              <h3 class="font-headline-md text-lg uppercase text-on-surface tracking-wider font-semibold">CALIBRATED HARDWARE</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant leading-relaxed">Swedish competition plates, aggressive knurling on 29mm bars, custom 4x4 steel uprights. Equipment engineered to handle extreme force without deformation.</p>
+            </div>
+            <div class="h-0.5 w-12 bg-primary-container group-hover:w-20 transition-all duration-300"></div>
+          </div>
+
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high hover:border-primary-container space-y-6 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1">
+            <div class="space-y-4">
+              <span class="font-headline-md text-xl text-primary font-mono group-hover:tracking-wider transition-all">04 //</span>
+              <h3 class="font-headline-md text-lg uppercase text-on-surface tracking-wider font-semibold">ZERO-DISTRACTION ATMOSPHERE</h3>
+              <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant leading-relaxed">Strictly capped membership base. Zero cell phone tripods, no influencers, no queuing for racks. An environment dedicated entirely to focused execution.</p>
+            </div>
+            <div class="h-0.5 w-12 bg-primary-container group-hover:w-20 transition-all duration-300"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 05: MEMBERSHIP TIERS ==================== -->
+    <section class="reveal w-full bg-surface-container-lowest py-24 lg:py-32 border-b border-surface-container-high" id="membership">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block mb-3 font-semibold">
+              [ 04 / ADMISSION ] // SELECT YOUR TIER
+            </span>
+            <h2 class="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-on-surface tracking-tight font-bold">
+              DISCIPLINED TIERS
+            </h2>
+            <p class="font-body-sm text-xs text-outline uppercase tracking-widest mt-2">
+              Capped at 250 active memberships // Vetted admissions only
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          <!-- Tier 1 -->
+          <div class="bg-surface-container-low border border-surface-container-high p-8 lg:p-10 flex flex-col justify-between space-y-8">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-xs uppercase tracking-widest text-outline">TIER 01</span>
+                <span class="font-label-sm text-xs uppercase tracking-widest text-on-surface-variant">MONTHLY</span>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-headline-lg text-2xl uppercase text-on-surface tracking-wider font-semibold">ESSENTIAL</h3>
+                <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">
+                  Self-directed access for disciplined lifters seeking our calibrated hardware and quiet environment.
+                </p>
+              </div>
+              <div class="pt-4 flex items-baseline gap-2">
+                <span class="font-display-lg text-4xl sm:text-5xl font-bold text-on-surface tracking-tight">$195</span>
+                <span class="font-label-md text-xs uppercase text-outline tracking-widest">/ MONTH</span>
+              </div>
+              <ul class="space-y-4 pt-6 border-t border-surface-container-high">
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Open facility access during operational hours</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Full access to competition barbells &amp; platforms</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Biometric locker &amp; recovery lounge</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Quarterly movement screen &amp; mobility audit</span>
+                </li>
+              </ul>
+            </div>
+            <button onclick="openIntakeModal('membership', 'Essential')" class="w-full inline-flex items-center justify-center bg-transparent hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg text-xs tracking-widest uppercase py-4 border border-surface-container-high hover:border-primary-container transition-all font-bold">
+              APPLY FOR ESSENTIAL
+            </button>
+          </div>
+
+          <!-- Tier 2 (Featured) -->
+          <div class="relative bg-surface-container border-2 border-primary-container p-8 lg:p-10 flex flex-col justify-between space-y-8 shadow-2xl lg:-translate-y-2">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary-container text-on-primary-container px-4 py-1 font-label-sm text-[10px] sm:text-xs uppercase tracking-widest font-bold whitespace-nowrap shadow-md">
+              MOST SELECTED // CORE ATHLETE
+            </div>
+            <div class="space-y-6">
+              <div class="flex items-center justify-between pt-1">
+                <span class="font-label-sm text-xs uppercase tracking-widest text-primary font-bold">TIER 02</span>
+                <span class="font-label-sm text-xs uppercase tracking-widest text-primary">FULL PROGRAM</span>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-headline-lg text-2xl uppercase text-on-surface tracking-wider font-semibold">PERFORMANCE</h3>
+                <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">
+                  Complete integration of coaching, recovery protocols, and full unrestricted facility access.
+                </p>
+              </div>
+              <div class="pt-4 flex items-baseline gap-2">
+                <span class="font-display-lg text-4xl sm:text-5xl font-bold text-primary tracking-tight">$320</span>
+                <span class="font-label-md text-xs uppercase text-outline tracking-widest">/ MONTH</span>
+              </div>
+              <ul class="space-y-4 pt-6 border-t border-surface-container-high">
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span class="font-medium">24/7 Unlimited biometric facility access</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>4 monthly private coaching &amp; technique sessions</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Full access to cold plunge &amp; infrared saunas</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Quarterly DEXA body composition &amp; force plate metrics</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Custom velocity-based progressive periodization plan</span>
+                </li>
+              </ul>
+            </div>
+            <button onclick="openIntakeModal('membership', 'Performance')" class="w-full inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs tracking-widest uppercase py-4 transition-colors font-bold shadow-lg">
+              SELECT PERFORMANCE TIER
+            </button>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="bg-surface-container-low border border-surface-container-high p-8 lg:p-10 flex flex-col justify-between space-y-8">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-xs uppercase tracking-widest text-outline">TIER 03</span>
+                <span class="font-label-sm text-xs uppercase tracking-widest text-on-surface-variant">BESPOKE</span>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-headline-lg text-2xl uppercase text-on-surface tracking-wider font-semibold">ELITE</h3>
+                <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant font-light leading-relaxed">
+                  High-touch, fully managed athletic mentorship for competitive athletes and executives.
+                </p>
+              </div>
+              <div class="pt-4 flex items-baseline gap-2">
+                <span class="font-display-lg text-4xl sm:text-5xl font-bold text-on-surface tracking-tight">$550</span>
+                <span class="font-label-md text-xs uppercase text-outline tracking-widest">/ MONTH</span>
+              </div>
+              <ul class="space-y-4 pt-6 border-t border-surface-container-high">
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Dedicated Master Coach with 24/7 direct communication</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Unlimited 1-on-1 private lifting &amp; recovery blocks</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Complete nutritional biochemistry &amp; meal programming</span>
+                </li>
+                <li class="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check</span>
+                  <span>Private assigned permanent locker &amp; apparel laundry</span>
+                </li>
+              </ul>
+            </div>
+            <button onclick="openIntakeModal('membership', 'Elite')" class="w-full inline-flex items-center justify-center bg-transparent hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg text-xs tracking-widest uppercase py-4 border border-surface-container-high hover:border-primary-container transition-all font-bold">
+              APPLY FOR ELITE
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 06: PHILOSOPHY CALLOUT BANNER ==================== -->
+    <section class="reveal relative w-full py-28 sm:py-36 bg-surface-container-lowest overflow-hidden border-b border-surface-container-high">
+      <div class="absolute inset-0 z-0">
+        <div class="w-full h-full bg-cover bg-center opacity-25" style="background-image: url('public/banner-barbell-knurl.jpg')"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/85 to-surface-container-lowest"></div>
+      </div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center">
+        <span class="font-label-md text-xs uppercase tracking-[0.3em] text-primary block mb-6 font-semibold">
+          FOUNDATIONAL MAXIM // 05
+        </span>
+        <h2 class="font-display-xl text-3xl sm:text-5xl lg:text-7xl uppercase text-on-surface tracking-tight leading-none mb-8 font-bold">
+          YOUR ONLY COMPETITION<br/>
+          <span class="text-primary-container">IS WHO YOU WERE.</span>
+        </h2>
+        <p class="font-body-lg text-sm sm:text-base lg:text-lg text-on-surface-variant max-w-2xl font-light leading-relaxed mb-10">
+          The barbell does not negotiate. It does not validate ego or care for excuses. It reflects with absolute fidelity the exact measure of preparation and disciplined effort you bring to it.
+        </p>
+        <button onclick="openIntakeModal('evaluation', 'Performance')" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs tracking-widest uppercase px-10 py-4 transition-colors font-bold shadow-lg">
+          REQUEST INTRODUCTORY EVALUATION
+          <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 07: TESTIMONIALS ==================== -->
+    <section class="reveal w-full bg-surface-container-low py-24 lg:py-32 border-b border-surface-container-high" id="testimonials">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block mb-3 font-semibold">
+              [ 06 / DISPATCHES ] // ATHLETE RECORDS
+            </span>
+            <h2 class="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-on-surface tracking-tight font-bold">
+              VERIFIED EXPERIENCES
+            </h2>
+          </div>
+          <p class="font-body-sm text-xs text-outline uppercase tracking-widest">
+            DOCUMENTED TRANSFORMATIONS &amp; LONGEVITY PROFILES
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between space-y-6">
+            <div class="space-y-6">
+              <span class="font-headline-md text-4xl text-primary font-mono leading-none block">“</span>
+              <p class="font-body-md text-sm sm:text-base text-on-surface font-light leading-relaxed">
+                IRON completely redefined my approach to athletic longevity. In 18 months of structured velocity tracking, my compound total increased by 35% with zero chronic joint fatigue. The precision here is unmatched.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-surface-container-high">
+              <p class="font-headline-sm text-base uppercase text-on-surface tracking-wider font-semibold">M. VANCE</p>
+              <p class="font-label-sm text-[11px] uppercase tracking-widest text-primary mt-1 font-medium">Competitive Powerlifter // Member 3 Yrs</p>
+            </div>
+          </div>
+
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between space-y-6">
+            <div class="space-y-6">
+              <span class="font-headline-md text-4xl text-primary font-mono leading-none block">“</span>
+              <p class="font-body-md text-sm sm:text-base text-on-surface font-light leading-relaxed">
+                A sanctuary of uncompromised focus. No commercial playlists, no members occupying benches on their phones, no vanity. The coaching caliber and facility architectural finish are the finest in the city.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-surface-container-high">
+              <p class="font-headline-sm text-base uppercase text-on-surface tracking-wider font-semibold">D. STERLING</p>
+              <p class="font-label-sm text-[11px] uppercase tracking-widest text-primary mt-1 font-medium">Endurance Athlete &amp; Executive // Member 2 Yrs</p>
+            </div>
+          </div>
+
+          <div class="p-8 bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between space-y-6">
+            <div class="space-y-6">
+              <span class="font-headline-md text-4xl text-primary font-mono leading-none block">“</span>
+              <p class="font-body-md text-sm sm:text-base text-on-surface font-light leading-relaxed">
+                No mirrors to distract, zero gimmicks. Just world-class programming, pristine Eleiko calibrated iron, and relentless accountability from coaches who have actually stood on podiums.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-surface-container-high">
+              <p class="font-headline-sm text-base uppercase text-on-surface tracking-wider font-semibold">S. THORNE</p>
+              <p class="font-label-sm text-[11px] uppercase tracking-widest text-primary mt-1 font-medium">Hybrid Athlete // Member 1.5 Yrs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 08: INTAKE & TOURS ==================== -->
+    <section class="reveal w-full bg-surface-container-lowest py-24 lg:py-32" id="intake">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="border border-surface-container-high bg-surface-container-low p-8 lg:p-16 relative overflow-hidden">
+          <div class="max-w-3xl space-y-6 relative z-10">
+            <span class="font-label-md text-xs uppercase tracking-[0.25em] text-primary block font-semibold">
+              [ INITIATE INTAKE ] // ADMISSIONS OPEN
+            </span>
+            <h2 class="font-display-xl text-3xl sm:text-5xl lg:text-6xl uppercase text-on-surface tracking-tight leading-none font-bold">
+              YOUR NEXT REP<br/>
+              <span class="text-primary-container">STARTS HERE.</span>
+            </h2>
+            <p class="font-body-lg text-sm sm:text-base text-on-surface-variant font-light leading-relaxed max-w-xl">
+              Schedule your introductory biomechanical intake and private facility walk-through. Admissions are reviewed on a rolling weekly basis to protect active member density.
+            </p>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+              <button onclick="openIntakeModal('membership', 'Performance')" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs tracking-widest uppercase px-8 py-4 transition-colors font-bold shadow-lg">
+                INQUIRE ABOUT MEMBERSHIP
+                <span class="material-symbols-outlined ml-2 text-[18px]">north_east</span>
+              </button>
+              <button onclick="openIntakeModal('tour', 'Performance')" class="inline-flex items-center justify-center bg-transparent hover:bg-surface-container text-on-surface hover:text-primary font-label-lg text-xs tracking-widest uppercase px-8 py-4 border border-outline-variant hover:border-primary-container transition-all font-semibold">
+                BOOK PRIVATE TOUR
+                <span class="material-symbols-outlined ml-2 text-[18px]">calendar_today</span>
+              </button>
+            </div>
+            <div class="pt-8 border-t border-surface-container-high flex flex-wrap items-center gap-6 font-label-sm text-[11px] uppercase tracking-widest text-outline">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-primary"></span>
+                IMMEDIATE 48-HR RESPONSE
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-primary"></span>
+                NO COMMITMENT INTAKE EVALUATION
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-primary"></span>
+                STRICT CAPACITY ENFORCED
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container-high pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-12 lg:gap-x-12 pb-16 border-b border-surface-container-high">
+        <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-sm bg-primary flex items-center justify-center font-display-xl font-bold text-on-primary text-lg">IF</div>
+              <span class="font-headline-sm text-lg uppercase tracking-widest text-on-surface font-semibold">IRON FITNESS</span>
+            </div>
+            <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant max-w-sm font-light leading-relaxed">
+              Architectural strength culture designed for elite performance. Precision engineering, disciplined programming, and austere athletic luxury.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <p class="font-label-sm text-[10px] uppercase tracking-widest text-outline">HEADQUARTERS</p>
+            <p class="font-body-sm text-xs text-on-surface">740 St. Ann's Avenue, Industrial Quarter, Suite 04</p>
+            <p class="font-body-sm text-xs text-on-surface-variant">contact@irongym.com // +1 (555) 740-4766</p>
+            <p class="font-label-sm text-[10px] tracking-widest text-outline pt-1 font-mono">MON-FRI: 05:00 - 23:00 | SAT-SUN: 07:00 - 21:00</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-4">
+          <h4 class="font-headline-sm text-sm uppercase text-on-surface font-semibold tracking-wider">NAVIGATION</h4>
+          <ul class="space-y-2.5 font-label-md text-xs uppercase tracking-wider text-on-surface-variant">
+            <li><a class="hover:text-primary transition-colors" href="#philosophy">Philosophy</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#disciplines">Disciplines</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#facility">Facility</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#membership">Membership</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#testimonials">Testimonials</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2 space-y-4">
+          <h4 class="font-headline-sm text-sm uppercase text-on-surface font-semibold tracking-wider">PROGRAMS</h4>
+          <ul class="space-y-2.5 font-label-md text-xs uppercase tracking-wider text-on-surface-variant">
+            <li><a class="hover:text-primary transition-colors" href="#disciplines">Olympic Lifting</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#disciplines">Hypertrophy Block</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#disciplines">Kinetic Conditioning</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#facility">Thermoregulation</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#disciplines">Private Coaching</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-4 space-y-5">
+          <h4 class="font-headline-sm text-sm uppercase text-on-surface font-semibold tracking-wider">DISPATCH // NEWSLETTER</h4>
+          <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">
+            Receive seasonal program releases, technical monographs, and private enclave symposium invitations.
+          </p>
+          <form onsubmit="handleNewsletter(event)" class="flex items-stretch border border-surface-container-high focus-within:border-primary-container transition-colors">
+            <input required class="w-full bg-surface-container px-4 py-3 font-label-md text-xs text-on-surface placeholder:text-outline-variant focus:outline-none" placeholder="ENTER EMAIL ARCHIVE" type="email" id="newsInput"/>
+            <button class="bg-primary-container hover:bg-primary text-on-primary-container px-5 font-label-md text-xs uppercase tracking-widest transition-colors flex items-center justify-center font-bold" type="submit">
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
+          <div id="newsToast" class="hidden text-xs text-primary font-mono">// EMAIL REGISTERED TO DISPATCH</div>
+          <div class="flex items-center gap-6 pt-2">
+            <a class="font-label-sm text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1.5" href="#">
+              <span class="material-symbols-outlined text-[14px]">tag</span>INSTAGRAM
+            </a>
+            <a class="font-label-sm text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1.5" href="#">
+              <span class="material-symbols-outlined text-[14px]">play_circle</span>YOUTUBE
+            </a>
+            <a class="font-label-sm text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1.5" href="#">
+              <span class="material-symbols-outlined text-[14px]">directions_run</span>STRAVA
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-label-sm text-[10px] uppercase tracking-widest text-outline">
+        <p>© 2025 IRON FITNESS GYM. ARCHITECTURAL PERFORMANCE SYSTEMS. ALL RIGHTS RESERVED.</p>
+        <div class="flex items-center gap-6">
+          <a class="hover:text-on-surface transition-colors" href="#">TERMS // GOVERNANCE</a>
+          <a class="hover:text-on-surface transition-colors" href="#">PRIVACY PROTOCOL</a>
+          <a class="hover:text-on-surface transition-colors" href="#">SAFETY DIRECTIVE</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== INTAKE MODAL ==================== -->
+  <div id="intakeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="relative w-full max-w-lg bg-[#131313] border border-primary-container p-6 sm:p-8 space-y-6 shadow-2xl">
+      <button onclick="closeIntakeModal()" class="absolute top-4 right-4 text-outline hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div id="intakeFormContainer">
+        <span class="font-label-sm text-xs uppercase tracking-widest text-primary block font-semibold">[ ADMISSIONS GATEWAY ]</span>
+        <h3 id="modalTitle" class="font-headline-lg text-2xl uppercase text-on-surface tracking-wider font-bold mt-1">MEMBERSHIP ADMISSION</h3>
+        
+        <form onsubmit="submitIntakeModal(event)" class="space-y-4 mt-4">
+          <div>
+            <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Target Membership Tier</label>
+            <select id="modalTierSelect" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs text-on-surface outline-none">
+              <option value="Essential">Tier 01 // Essential ($195/mo)</option>
+              <option value="Performance" selected>Tier 02 // Performance ($320/mo) - Core Athlete</option>
+              <option value="Elite">Tier 03 // Elite ($550/mo) - Bespoke Mentorship</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Full Name *</label>
+            <input required type="text" placeholder="Marcus Vance" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs sm:text-sm text-on-surface outline-none"/>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Email Address *</label>
+              <input required type="email" placeholder="athlete@domain.com" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs sm:text-sm text-on-surface outline-none"/>
+            </div>
+            <div>
+              <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Mobile Phone</label>
+              <input type="tel" placeholder="+1 (555) 019-2834" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs sm:text-sm text-on-surface outline-none"/>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs uppercase tracking-widest font-bold transition-colors flex items-center justify-center gap-2 mt-4 shadow-lg">
+            <span>SUBMIT FOR ADMISSION REVIEW</span>
+            <span class="material-symbols-outlined text-[16px]">north_east</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="intakeSuccess" class="hidden text-center py-8 space-y-4">
+        <div class="w-14 h-14 bg-primary/20 border border-primary mx-auto flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary text-3xl">check</span>
+        </div>
+        <h4 class="font-headline-lg text-xl uppercase text-on-surface tracking-wider font-bold">DOSSIER REGISTERED</h4>
+        <p class="text-xs text-on-surface-variant max-w-sm mx-auto">Admissions Director Marcus V. Roth will review your background and respond within 48 hours.</p>
+        <button onclick="closeIntakeModal()" class="mt-4 px-6 py-2.5 bg-primary-container text-on-primary-container text-xs font-label-lg uppercase tracking-wider font-bold">RETURN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MEMBER PORTAL MODAL ==================== -->
+  <div id="portalModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="relative w-full max-w-md bg-[#131313] border border-primary-container p-6 sm:p-8 space-y-6 shadow-2xl">
+      <button onclick="closePortalModal()" class="absolute top-4 right-4 text-outline hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div>
+        <span class="font-label-sm text-xs uppercase tracking-widest text-primary block font-semibold">[ BIOMETRIC ACCESS ]</span>
+        <h3 class="font-headline-lg text-2xl uppercase text-on-surface tracking-wider font-bold mt-1">MEMBER PORTAL</h3>
+        <p class="text-xs text-on-surface-variant mt-1 font-light">Access your DEXA telemetry, velocity charts, and keycard tokens.</p>
+      </div>
+
+      <form onsubmit="handlePortalLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Biometric Keycard ID / Email</label>
+          <input required type="text" placeholder="IF-80174 or member@irongym.com" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs text-on-surface outline-none" id="portalIdInput"/>
+        </div>
+        <div>
+          <label class="block text-[11px] font-label-sm uppercase tracking-wider text-outline mb-1.5">Access Passcode</label>
+          <input required type="password" placeholder="••••••••" class="w-full bg-[#1c1b1b] border border-surface-container-high focus:border-primary px-4 py-2.5 text-xs text-on-surface outline-none"/>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs uppercase tracking-widest font-bold transition-colors flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">lock_open</span>
+          AUTHENTICATE ATHLETE
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ==================== SCROLL-DRIVEN FRAME ANIMATION & DOCKING ====================
+    const TOTAL_FRAMES = 181;
+    const heroFrames = [];
+    let currentLerpProgress = 0;
+    let targetScrollProgress = 0;
+
+    // Preload frames
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const numStr = String(i).padStart(3, '0');
+      img.src = `public/hero-frames/ezgif-frame-${numStr}.jpg`;
+      heroFrames.push(img);
+    }
+
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    const videoContainer = document.getElementById('videoContainer');
+    const scrollHint = document.getElementById('scrollHint');
+    const frameCounterText = document.getElementById('frameCounterText');
+    const heroTextCluster = document.getElementById('heroTextCluster');
+    const telemetryStrip = document.getElementById('telemetryStrip');
+    const videoDockBadge = document.getElementById('videoDockBadge');
+    const heroTrack = document.getElementById('heroTrack');
+
+    function renderCanvasFrame(img) {
+      if (!ctx || !canvas || !img || !img.complete || img.naturalWidth === 0) return;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const dw = Math.round(canvas.clientWidth);
+      const dh = Math.round(canvas.clientHeight);
+      if (canvas.width !== dw * dpr || canvas.height !== dh * dpr) {
+        canvas.width = dw * dpr;
+        canvas.height = dh * dpr;
+      }
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+      const scale = Math.max(dw / iw, dh / ih);
+      const nw = Math.round(iw * scale);
+      const nh = Math.round(ih * scale);
+      const cx = Math.round((dw - nw) / 2);
+      const cy = Math.round((dh - nh) / 2);
+      ctx.clearRect(0, 0, dw, dh);
+      ctx.drawImage(img, cx, cy, nw, nh);
+      ctx.restore();
+    }
+
+    function onScrollUpdate() {
+      if (!heroTrack) return;
+      const rect = heroTrack.getBoundingClientRect();
+      const scrollableDist = heroTrack.offsetHeight - window.innerHeight;
+      if (scrollableDist <= 0) return;
+      targetScrollProgress = Math.max(0, Math.min(1, -rect.top / scrollableDist));
+    }
+    window.addEventListener('scroll', onScrollUpdate, { passive: true });
+
+    function animLoop() {
+      currentLerpProgress += (targetScrollProgress - currentLerpProgress) * 0.12;
+      const p = currentLerpProgress;
+
+      // 1. Frame selection (Phase 1: 0 to 0.70)
+      const playPhase = Math.min(1, p / 0.70);
+      const frameIdx = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.floor(playPhase * (TOTAL_FRAMES - 1))));
+      renderCanvasFrame(heroFrames[frameIdx]);
+
+      if (frameCounterText) {
+        frameCounterText.innerText = `FRAME ${String(frameIdx + 1).padStart(3, '0')} / 181`;
+      }
+
+      // 2. Scroll Hint Opacity (fades out in first 15%)
+      if (scrollHint) {
+        scrollHint.style.opacity = p < 0.15 ? (1 - p / 0.15) : 0;
+      }
+
+      // 3. Docking Morph Transition (Phase 2: 0.70 to 1.0)
+      const t = Math.max(0, Math.min(1, (p - 0.70) / 0.30));
+      const isDesktop = window.innerWidth >= 1024;
+      const maxW = 1280;
+      const marginLeft = Math.max(24, (window.innerWidth - maxW) / 2 + (isDesktop ? 48 : 24));
+      const dockW = isDesktop ? Math.min(500, window.innerWidth * 0.42) : window.innerWidth - 48;
+      const dockH = dockW * (416 / 752);
+      const dockL = isDesktop ? marginLeft : 24;
+      const dockT = isDesktop ? window.innerHeight * 0.22 : 95;
+
+      const curL = 0 + (dockL - 0) * t;
+      const curT = 0 + (dockT - 0) * t;
+      const curW = window.innerWidth + (dockW - window.innerWidth) * t;
+      const curH = window.innerHeight + (dockH - window.innerHeight) * t;
+
+      if (videoContainer) {
+        videoContainer.style.left = `${curL}px`;
+        videoContainer.style.top = `${curT}px`;
+        videoContainer.style.width = `${curW}px`;
+        videoContainer.style.height = `${curH}px`;
+        videoContainer.style.borderRadius = `${t * 4}px`;
+        videoContainer.style.border = t > 0.05 ? '1px solid #b58a58' : 'none';
+        videoContainer.style.boxShadow = t > 0.05 ? '0 25px 60px rgba(0,0,0,0.95)' : 'none';
+      }
+
+      if (videoDockBadge) {
+        videoDockBadge.style.opacity = t > 0.8 ? (t - 0.8) / 0.2 : 0;
+      }
+
+      // 4. Hero Texts & Telemetry Strip (Appear simultaneously)
+      if (heroTextCluster) {
+        heroTextCluster.style.opacity = t;
+        heroTextCluster.style.transform = `translateX(${(1 - t) * 50}px)`;
+        heroTextCluster.style.pointerEvents = t > 0.7 ? 'auto' : 'none';
+      }
+
+      if (telemetryStrip) {
+        telemetryStrip.style.opacity = t;
+        telemetryStrip.style.transform = `translateY(${(1 - t) * 30}px)`;
+        telemetryStrip.style.pointerEvents = t > 0.7 ? 'auto' : 'none';
+      }
+
+      requestAnimationFrame(animLoop);
+    }
+    requestAnimationFrame(animLoop);
+
+    // ==================== GLOBAL SCROLL REVEAL OBSERVER ====================
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+      const modal = document.getElementById('intakeModal');
+      const select = document.getElementById('modalTierSelect');
+      const title = document.getElementById('modalTitle');
+      document.getElementById('intakeFormContainer').classList.remove('hidden');
+      document.getElementById('intakeSuccess').classList.add('hidden');
+      if (select && tier) select.value = tier;
+      if (title) {
+        title.innerText = mode === 'tour' ? 'BOOK PRIVATE TOUR' : mode === 'evaluation' ? 'INTRODUCTORY EVALUATION' : 'MEMBERSHIP ADMISSION';
+      }
+      modal.classList.remove('hidden');
+    }
+    function closeIntakeModal() {
+      document.getElementById('intakeModal').classList.add('hidden');
+    }
+    function submitIntakeModal(e) {
+      e.preventDefault();
+      document.getElementById('intakeFormContainer').classList.add('hidden');
+      document.getElementById('intakeSuccess').classList.remove('hidden');
+    }
+    function openPortalModal() {
+      document.getElementById('portalModal').classList.remove('hidden');
+    }
+    function closePortalModal() {
+      document.getElementById('portalModal').classList.add('hidden');
+    }
+    function handlePortalLogin(e) {
+      e.preventDefault();
+      alert('Biometric telemetry synchronized. Athlete access granted.');
+      closePortalModal();
+    }
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const toast = document.getElementById('newsToast');
+      toast.classList.remove('hidden');
+      document.getElementById('newsInput').value = '';
+      setTimeout(() => toast.classList.add('hidden'), 4000);
+    }
+  </script>
+</body>
+</html>
