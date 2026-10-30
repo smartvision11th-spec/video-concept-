@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark scroll-smooth overflow-x-hidden" lang="en">
+<html class="dark scroll-smooth" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -13,7 +13,7 @@
   
   <style>
     @layer base {
-      html, body { margin:0; padding:0; }
+      html, body { margin:0; padding:0; width:100%; overflow-x:clip; }
       body { overscroll-behavior: none; }
     }
     ::-webkit-scrollbar { width: 6px; }
@@ -82,7 +82,7 @@
     };
   </script>
 </head>
-<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden">
+<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary">
 
   <!-- ==================== HEADER ==================== -->
   <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container-high">
@@ -123,7 +123,7 @@
   <main class="w-full pt-0 bg-surface-container-lowest min-h-screen">
     
     <!-- ==================== HERO SECTION (SCROLL-DRIVEN VIDEO FRAME PLAYER) ==================== -->
-    <section id="heroTrack" class="relative w-full bg-surface-container-lowest" style="height: 340vh;">
+    <section id="heroTrack" class="relative w-full bg-surface-container-lowest" style="height: 260vh;">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-[#0e0e0e]">
         
         <!-- DYNAMIC MORPHING VIDEO CANVAS CONTAINER -->
@@ -1009,7 +1009,7 @@
       }
 
       // 3. Docking Morph Transition (Phase 2: 0.70 to 1.0)
-      const t = Math.max(0, Math.min(1, (p - 0.70) / 0.30));
+      const t = Math.max(0, Math.min(1, (p - 0.70) / 0.22));
       const isMobile = window.innerWidth < 768;
       const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
       const isDesktop = window.innerWidth >= 1024;

@@ -104,20 +104,20 @@ export default function Hero({ onOpenIntake }) {
   const isTablet = dimensions.width >= 768 && dimensions.width < 1024;
   const isMobile = dimensions.width < 768;
 
+  // Phase 1: Video playback occupies scroll from 0.0 to 0.70 (Frame 1 to 181)
+  const playPhase = Math.min(1, scrollProgress / 0.70);
+  const frameIndex = Math.min(
+    TOTAL_FRAMES - 1,
+    Math.max(0, Math.floor(playPhase * (TOTAL_FRAMES - 1)))
+  );
+
   // Draw current frame to canvas:
-  // Native resolution 868 x 480 is strictly preserved for 1:1 pixel rendering with zero crop and zero distortion
+  // Native resolution 868 x 480 is strictly preserved for 1:1 pixel rendering
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    // Calculate frame index based on scroll (phase 1: 0 to 0.70)
-    const playPhase = Math.min(1, scrollProgress / 0.70);
-    const frameIndex = Math.min(
-      TOTAL_FRAMES - 1,
-      Math.max(0, Math.floor(playPhase * (TOTAL_FRAMES - 1)))
-    );
 
     const img = imagesRef.current[frameIndex];
     if (img && img.complete && img.naturalWidth > 0) {
@@ -132,11 +132,11 @@ export default function Hero({ onOpenIntake }) {
       ctx.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
       ctx.drawImage(img, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
     }
-  }, [scrollProgress, imagesLoaded]);
+  }, [frameIndex, imagesLoaded]);
 
-  // Phase transition calculation (0.70 to 1.0)
-  const isTransitioning = scrollProgress >= 0.70;
-  const t = Math.max(0, Math.min(1, (scrollProgress - 0.70) / 0.30));
+  // Phase 2: Docking transition happens ONLY AFTER the video ends (0.70 to 0.95)
+  // At scrollProgress < 0.70, t is strictly 0 (Zero text, pure fullscreen video)
+  const t = Math.max(0, Math.min(1, (scrollProgress - 0.70) / 0.22));
 
   // =========================================================================
   // SYNCHRONIZED VIDEO & HERO SECTION GEOMETRY (868 x 480 ASPECT RATIO)
@@ -144,16 +144,14 @@ export default function Hero({ onOpenIntake }) {
   const winW = dimensions.width;
   const winH = dimensions.height;
 
-  // Phase 1: Initial full video frame sizing.
-  // Synchronized directly with 868:480 so the entire video frame fits the viewport comfortably without cropping.
+  // Initial full video frame sizing (Strictly preserving 868:480)
   const scale = Math.min(winW / VIDEO_WIDTH, (winH - (isMobile ? 110 : 80)) / VIDEO_HEIGHT);
   const initWidth = Math.round(VIDEO_WIDTH * scale);
   const initHeight = Math.round(VIDEO_HEIGHT * scale);
   const initLeft = Math.round((winW - initWidth) / 2);
   const initTop = Math.round((winH - initHeight) / 2);
 
-  // Phase 2: Docked corner video frame sizing.
-  // Strictly maintains 868:480 aspect ratio when shrunk into the corner dock.
+  // Docked corner video frame sizing (Strictly preserving 868:480)
   let dockWidth, dockHeight, dockLeft, dockTop;
 
   if (isDesktop) {
@@ -182,7 +180,7 @@ export default function Hero({ onOpenIntake }) {
 
   const currentFrameNumber = Math.min(
     TOTAL_FRAMES,
-    Math.max(1, Math.floor((Math.min(1, scrollProgress / 0.70)) * TOTAL_FRAMES))
+    Math.max(1, Math.floor(playPhase * TOTAL_FRAMES))
   );
 
   const handleReplay = () => {
@@ -197,11 +195,11 @@ export default function Hero({ onOpenIntake }) {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#0e0e0e] overflow-x-hidden"
-      style={{ height: '340vh' }} // Extended scroll track for synchronized frame playback
+      className="relative w-full bg-[#0e0e0e]"
+      style={{ height: '260vh' }} // Calibrated scroll track pinned until video ends and docks
     >
-      {/* Sticky viewport frame container */}
-      <div className="sticky top-0 h-screen sm:h-[100dvh] w-full overflow-hidden bg-[#0e0e0e]">
+      {/* Sticky viewport frame container: Stays pinned while scrolling through track */}
+      <div className="sticky top-0 h-screen sm:h-[100dvh] w-full overflow-hidden bg-[#0e0e0e] z-10">
         
         {/* Subtle atmospheric ambient glow */}
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(181,138,88,0.06)_0%,transparent_75%)]" />
@@ -229,7 +227,7 @@ export default function Hero({ onOpenIntake }) {
             style={{ imageRendering: 'auto' }}
           />
 
-          {/* DOCKED BADGE & OVERLAY (Appears when video finishes and docks into left corner) */}
+          {/* DOCKED BADGE & OVERLAY (Appears ONLY AFTER video finishes and docks into left corner) */}
           <div
             className="absolute inset-0 flex flex-col justify-between p-2 sm:p-3 pointer-events-none transition-opacity duration-300"
             style={{ opacity: t > 0.8 ? (t - 0.8) / 0.2 : 0 }}
@@ -308,6 +306,7 @@ export default function Hero({ onOpenIntake }) {
 
         {/* ============================================================== */}
         {/* PHASE 2: HERO TEXT CLUSTER & TELEMETRY STRIP                  */}
+        {/* (Appears ONLY AFTER video playback ends and morphs into dock) */}
         {/* ============================================================== */}
         <div
           className="relative z-20 max-w-7xl w-full h-full mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-between pt-16 sm:pt-24 pb-3 sm:pb-8 pointer-events-none"
@@ -370,13 +369,14 @@ export default function Hero({ onOpenIntake }) {
           </div>
 
           {/* ============================================================== */}
-          {/* TELEMETRY STATS STRIP (Slides up smoothly)                    */}
+          {/* TELEMETRY STATS STRIP (Slides up smoothly AFTER video ends)  */}
           {/* ============================================================== */}
           <div
             className="w-full bg-[#1c1b1b]/90 backdrop-blur-md border border-[#2a2a2a] mt-2 sm:mt-6 pointer-events-auto"
             style={{
               opacity: t,
               transform: `translateY(${(1 - t) * 20}px)`,
+              pointerEvents: t > 0.7 ? 'auto' : 'none',
               transition: 'opacity 0.2s ease-out, transform 0.2s ease-out',
             }}
           >

@@ -7,7 +7,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip; /* clip does NOT create a scroll container and does NOT break position: sticky */
     background-color: #0e0e0e;
     color: #e5e2e1;
     scroll-behavior: smooth;
