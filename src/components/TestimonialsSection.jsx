@@ -20,16 +20,16 @@ const TESTIMONIALS = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="w-full bg-[#1c1b1b] py-24 lg:py-32 border-b border-[#2a2a2a]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="testimonials" className="w-full bg-[#1c1b1b] py-16 sm:py-24 lg:py-32 border-b border-[#2a2a2a]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-3 sm:gap-4">
           <div>
-            <span className="font-label-md text-xs uppercase tracking-[0.25em] text-[#eebe87] block mb-3 font-semibold">
+            <span className="font-label-md text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#eebe87] block mb-2 sm:mb-3 font-semibold">
               [ 06 / DISPATCHES ] // ATHLETE RECORDS
             </span>
-            <h2 className="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-[#e5e2e1] tracking-tight font-bold">
+            <h2 className="font-display-lg text-2xl sm:text-4xl lg:text-5xl uppercase text-[#e5e2e1] tracking-tight font-bold">
               VERIFIED EXPERIENCES
             </h2>
           </div>
@@ -39,25 +39,25 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonial Cards 3 Column */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {TESTIMONIALS.map((item, idx) => (
             <div
               key={idx}
-              className="p-8 bg-[#0e0e0e] border border-[#2a2a2a] hover:border-[#b58a58] flex flex-col justify-between space-y-6 transition-all duration-300 group"
+              className="luxury-card p-6 sm:p-8 bg-[#0e0e0e] border border-[#2a2a2a] hover:border-[#b58a58] flex flex-col justify-between space-y-5 sm:space-y-6 transition-all duration-300 group"
             >
-              <div className="space-y-6">
-                <span className="font-headline-md text-4xl text-[#eebe87] font-mono leading-none block">
+              <div className="space-y-4 sm:space-y-6">
+                <span className="font-headline-md text-3xl sm:text-4xl text-[#eebe87] font-mono leading-none block">
                   “
                 </span>
-                <p className="font-body-md text-sm sm:text-base text-[#e5e2e1] font-light leading-relaxed">
+                <p className="font-body-md text-xs sm:text-sm lg:text-base text-[#e5e2e1] font-light leading-relaxed">
                   {item.quote}
                 </p>
               </div>
-              <div className="pt-6 border-t border-[#2a2a2a]">
-                <p className="font-headline-sm text-base uppercase text-[#e5e2e1] tracking-wider font-semibold">
+              <div className="pt-4 sm:pt-6 border-t border-[#2a2a2a]">
+                <p className="font-headline-sm text-sm sm:text-base uppercase text-[#e5e2e1] tracking-wider font-semibold">
                   {item.author}
                 </p>
-                <p className="font-label-sm text-[11px] uppercase tracking-widest text-[#eebe87] mt-1 font-medium">
+                <p className="font-label-sm text-[10px] sm:text-[11px] uppercase tracking-widest text-[#eebe87] mt-1 font-medium">
                   {item.role}
                 </p>
               </div>

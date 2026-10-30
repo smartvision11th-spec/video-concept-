@@ -57,28 +57,28 @@ export default function MembershipSection({ onSelectTier }) {
   const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'annual'
 
   return (
-    <section id="membership" className="w-full bg-[#0e0e0e] py-24 lg:py-32 border-b border-[#2a2a2a]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="membership" className="w-full bg-[#0e0e0e] py-16 sm:py-24 lg:py-32 border-b border-[#2a2a2a]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Heading & Billing Switch */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-5 sm:gap-6">
           <div>
-            <span className="font-label-md text-xs uppercase tracking-[0.25em] text-[#eebe87] block mb-3 font-semibold">
+            <span className="font-label-md text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#eebe87] block mb-2 sm:mb-3 font-semibold">
               [ 04 / ADMISSION ] // SELECT YOUR TIER
             </span>
-            <h2 className="font-display-lg text-3xl sm:text-4xl lg:text-5xl uppercase text-[#e5e2e1] tracking-tight font-bold">
+            <h2 className="font-display-lg text-2xl sm:text-4xl lg:text-5xl uppercase text-[#e5e2e1] tracking-tight font-bold">
               DISCIPLINED TIERS
             </h2>
-            <p className="font-body-sm text-xs text-[#9c8e82] uppercase tracking-widest mt-2">
+            <p className="font-body-sm text-xs text-[#9c8e82] uppercase tracking-widest mt-1.5 sm:mt-2">
               Capped at 250 active memberships // Vetted admissions only
             </p>
           </div>
 
-          {/* Monthly / Annual Billing Toggle */}
-          <div className="flex items-center gap-3 bg-[#1c1b1b] p-1.5 border border-[#2a2a2a] self-start md:self-auto">
+          {/* Monthly / Annual Billing Toggle - Adaptive on mobile */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 bg-[#1c1b1b] p-1.5 border border-[#2a2a2a] w-full sm:w-auto">
             <button
               onClick={() => setBillingCycle('monthly')}
-              className={`px-4 py-2 font-label-sm text-xs tracking-wider uppercase transition-colors ${
+              className={`px-4 py-2 font-label-sm text-xs tracking-wider uppercase transition-colors text-center ${
                 billingCycle === 'monthly'
                   ? 'bg-[#b58a58] text-[#402500] font-bold'
                   : 'text-[#d3c4b6] hover:text-[#eebe87]'
@@ -88,7 +88,7 @@ export default function MembershipSection({ onSelectTier }) {
             </button>
             <button
               onClick={() => setBillingCycle('annual')}
-              className={`px-4 py-2 font-label-sm text-xs tracking-wider uppercase transition-colors flex items-center gap-1.5 ${
+              className={`px-4 py-2 font-label-sm text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-1.5 ${
                 billingCycle === 'annual'
                   ? 'bg-[#b58a58] text-[#402500] font-bold'
                   : 'text-[#d3c4b6] hover:text-[#eebe87]'
@@ -101,7 +101,7 @@ export default function MembershipSection({ onSelectTier }) {
         </div>
 
         {/* Pricing Cards 3 Column */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {TIERS.map((tier) => {
             const calculatedPrice = billingCycle === 'annual' 
               ? Math.round(tier.priceMonthly * 0.85)
@@ -110,7 +110,7 @@ export default function MembershipSection({ onSelectTier }) {
             return (
               <div
                 key={tier.id}
-                className={`luxury-card relative flex flex-col justify-between space-y-8 p-8 lg:p-10 transition-all duration-300 ${
+                className={`luxury-card relative flex flex-col justify-between space-y-6 sm:space-y-8 p-6 sm:p-8 lg:p-10 transition-all duration-300 ${
                   tier.featured
                     ? 'bg-[#201f1f] border-2 border-[#b58a58] shadow-2xl lg:-translate-y-2'
                     : 'bg-[#1c1b1b] border border-[#2a2a2a] hover:border-[#4f453a]'
@@ -118,23 +118,23 @@ export default function MembershipSection({ onSelectTier }) {
               >
                 {/* Featured Top Ribbon */}
                 {tier.featured && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#b58a58] text-[#402500] px-4 py-1 font-label-sm text-[10px] sm:text-xs uppercase tracking-widest font-bold whitespace-nowrap shadow-md">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#b58a58] text-[#402500] px-3.5 sm:px-4 py-1 font-label-sm text-[9px] sm:text-[10px] uppercase tracking-widest font-bold whitespace-nowrap shadow-md">
                     {tier.featuredBadge}
                   </div>
                 )}
 
-                <div className="space-y-6">
+                <div className="space-y-5 sm:space-y-6">
                   <div className="flex items-center justify-between pt-1">
-                    <span className={`font-label-sm text-xs uppercase tracking-widest font-bold ${tier.featured ? 'text-[#eebe87]' : 'text-[#9c8e82]'}`}>
+                    <span className={`font-label-sm text-[11px] sm:text-xs uppercase tracking-widest font-bold ${tier.featured ? 'text-[#eebe87]' : 'text-[#9c8e82]'}`}>
                       {tier.badge}
                     </span>
-                    <span className={`font-label-sm text-xs uppercase tracking-widest ${tier.featured ? 'text-[#eebe87]' : 'text-[#d3c4b6]'}`}>
+                    <span className={`font-label-sm text-[11px] sm:text-xs uppercase tracking-widest ${tier.featured ? 'text-[#eebe87]' : 'text-[#d3c4b6]'}`}>
                       {billingCycle === 'annual' ? 'ANNUAL RATE' : tier.cadence}
                     </span>
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-headline-lg text-2xl uppercase text-[#e5e2e1] tracking-wider font-semibold">
+                    <h3 className="font-headline-lg text-xl sm:text-2xl uppercase text-[#e5e2e1] tracking-wider font-semibold">
                       {tier.name}
                     </h3>
                     <p className="font-body-sm text-xs sm:text-sm text-[#d3c4b6] font-light leading-relaxed">
@@ -142,19 +142,19 @@ export default function MembershipSection({ onSelectTier }) {
                     </p>
                   </div>
 
-                  <div className="pt-4 flex items-baseline gap-2">
-                    <span className={`font-display-lg text-4xl sm:text-5xl font-bold tracking-tight ${tier.featured ? 'text-[#eebe87]' : 'text-[#e5e2e1]'}`}>
+                  <div className="pt-2 sm:pt-4 flex items-baseline gap-2">
+                    <span className={`font-display-lg text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight ${tier.featured ? 'text-[#eebe87]' : 'text-[#e5e2e1]'}`}>
                       ${calculatedPrice}
                     </span>
-                    <span className="font-label-md text-xs uppercase text-[#9c8e82] tracking-widest">
+                    <span className="font-label-md text-[11px] sm:text-xs uppercase text-[#9c8e82] tracking-widest">
                       / MONTH {billingCycle === 'annual' ? '(BILLED ANNUALLY)' : ''}
                     </span>
                   </div>
 
                   {/* Features List */}
-                  <ul className="space-y-4 pt-6 border-t border-[#2a2a2a]">
+                  <ul className="space-y-3.5 sm:space-y-4 pt-5 sm:pt-6 border-t border-[#2a2a2a]">
                     {tier.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 font-body-sm text-xs sm:text-sm text-[#d3c4b6]">
+                      <li key={idx} className="flex items-start gap-2.5 sm:gap-3 font-body-sm text-xs sm:text-sm text-[#d3c4b6]">
                         <span className="material-symbols-outlined text-[#eebe87] text-[18px] flex-shrink-0 mt-0.5">
                           check
                         </span>
@@ -168,10 +168,10 @@ export default function MembershipSection({ onSelectTier }) {
 
                 <button
                   onClick={() => onSelectTier(tier.name, calculatedPrice)}
-                  className={`w-full inline-flex items-center justify-center font-label-lg text-xs tracking-widest uppercase py-4 transition-all duration-200 font-bold ${
+                  className={`w-full inline-flex items-center justify-center font-label-lg text-xs tracking-widest uppercase py-3.5 sm:py-4 transition-all duration-200 font-bold ${
                     tier.featured
-                      ? 'bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] shadow-md hover:shadow-[#eebe87]/20'
-                      : 'bg-transparent hover:bg-[#2a2a2a] text-[#e5e2e1] hover:text-[#eebe87] border border-[#2a2a2a] hover:border-[#b58a58]'
+                      ? 'bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] shadow-md hover:shadow-[#eebe87]/20 active:scale-95'
+                      : 'bg-transparent hover:bg-[#2a2a2a] text-[#e5e2e1] hover:text-[#eebe87] border border-[#2a2a2a] hover:border-[#b58a58] active:scale-95'
                   }`}
                 >
                   {tier.cta}

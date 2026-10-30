@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const TOTAL_FRAMES = 181;
+const FRAME_ASPECT = 480 / 868; // exact aspect ratio of new 868x480 video frames (~0.553)
 
 export default function Hero({ onOpenIntake }) {
   const containerRef = useRef(null);
@@ -21,16 +22,23 @@ export default function Hero({ onOpenIntake }) {
     height: typeof window !== 'undefined' ? window.innerHeight : 900,
   });
 
-  // Track window resize
+  // Track window resize with debounced update
   useEffect(() => {
+    let timeoutId;
     const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }, 50);
     };
     window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   // Preload all 181 frames
@@ -91,7 +99,7 @@ export default function Hero({ onOpenIntake }) {
     };
   }, []);
 
-  // Draw current frame to canvas
+  // Draw current frame to canvas with crisp retina filtering
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -146,25 +154,45 @@ export default function Hero({ onOpenIntake }) {
   const isTransitioning = scrollProgress >= 0.70;
   const t = Math.max(0, Math.min(1, (scrollProgress - 0.70) / 0.30));
 
-  // Target coordinates for docking the video in the left corner
+  // Breakpoints
   const isDesktop = dimensions.width >= 1024;
   const isTablet = dimensions.width >= 768 && dimensions.width < 1024;
+  const isMobile = dimensions.width < 768;
 
+  // Container geometry
   const maxContainerWidth = 1280;
-  const containerMarginLeft = Math.max(24, (dimensions.width - maxContainerWidth) / 2 + (isDesktop ? 48 : 24));
+  const containerMarginLeft = Math.max(16, (dimensions.width - maxContainerWidth) / 2 + (isDesktop ? 48 : 24));
   
-  // Dock dimensions
-  const dockWidth = isDesktop ? Math.min(500, dimensions.width * 0.42) : dimensions.width - 48;
-  const dockHeight = dockWidth * (416 / 752); // exact aspect ratio of video frames
-  const dockLeft = isDesktop ? containerMarginLeft : 24;
-  const dockTop = isDesktop ? dimensions.height * 0.22 : 95;
+  // Dock dimensions calculated adaptively for EVERY screen size
+  let dockWidth, dockHeight, dockLeft, dockTop;
 
-  // Interpolated geometry for the video container
+  if (isDesktop) {
+    // Desktop: side-by-side left dock
+    dockWidth = Math.min(540, dimensions.width * 0.40);
+    dockHeight = dockWidth * FRAME_ASPECT;
+    dockLeft = containerMarginLeft;
+    dockTop = Math.max(96, (dimensions.height - dockHeight - 110) / 2);
+  } else if (isTablet) {
+    // Tablet: sleek centered top banner
+    dockWidth = Math.min(580, dimensions.width - 48);
+    dockHeight = dockWidth * FRAME_ASPECT;
+    dockLeft = (dimensions.width - dockWidth) / 2;
+    dockTop = 88;
+  } else {
+    // Mobile: responsive top letterbox banner
+    dockWidth = dimensions.width - 32;
+    const maxDockH = Math.min(185, dimensions.height * 0.25);
+    dockHeight = Math.min(maxDockH, dockWidth * FRAME_ASPECT);
+    dockLeft = 16;
+    dockTop = 84;
+  }
+
+  // Smoothly interpolated geometry for the video container
   const curLeft = 0 + (dockLeft - 0) * t;
   const curTop = 0 + (dockTop - 0) * t;
   const curWidth = dimensions.width + (dockWidth - dimensions.width) * t;
   const curHeight = dimensions.height + (dockHeight - dimensions.height) * t;
-  const curBorderRadius = t * 4;
+  const curBorderRadius = t * 6;
 
   const currentFrameNumber = Math.min(
     TOTAL_FRAMES,
@@ -190,7 +218,7 @@ export default function Hero({ onOpenIntake }) {
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0e0e0e]">
         
         {/* ============================================================== */}
-        {/* DYNAMIC SCROLL VIDEO CONTAINER (FULLSCREEN -> LEFT DOCK)      */}
+        {/* DYNAMIC SCROLL VIDEO CONTAINER (FULLSCREEN -> DOCKED)          */}
         {/* ============================================================== */}
         <div
           className={`absolute overflow-hidden z-20 transition-shadow duration-300 ${
@@ -212,31 +240,31 @@ export default function Hero({ onOpenIntake }) {
             style={{ imageRendering: 'auto' }}
           />
 
-          {/* DOCKED BADGE & OVERLAY (Appears only when video finishes and docks into left corner) */}
+          {/* DOCKED BADGE & OVERLAY (Appears when video finishes and docks) */}
           <div
-            className="absolute inset-0 flex flex-col justify-between p-3.5 pointer-events-none transition-opacity duration-300"
+            className="absolute inset-0 flex flex-col justify-between p-2.5 sm:p-3.5 pointer-events-none transition-opacity duration-300"
             style={{ opacity: t > 0.8 ? (t - 0.8) / 0.2 : 0 }}
           >
             <div className="flex items-center justify-between">
-              <span className="bg-[#0e0e0e]/90 text-[#eebe87] font-mono text-[10px] tracking-widest px-2.5 py-1 border border-[#b58a58]/60 uppercase flex items-center gap-1.5 font-bold">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse inline-block"></span>
+              <span className="bg-[#0e0e0e]/90 text-[#eebe87] font-mono text-[9px] sm:text-[10px] tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 border border-[#b58a58]/60 uppercase flex items-center gap-1.5 font-bold">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-pulse inline-block"></span>
                 REC // 01:81 MOTION
               </span>
-              <span className="bg-[#0e0e0e]/90 text-[#d3c4b6] font-mono text-[10px] px-2 py-0.5 border border-[#2a2a2a]">
+              <span className="bg-[#0e0e0e]/90 text-[#d3c4b6] font-mono text-[9px] sm:text-[10px] px-2 py-0.5 border border-[#2a2a2a]">
                 181 FRAMES
               </span>
             </div>
 
             <div className="flex items-center justify-between pointer-events-auto">
-              <span className="text-[11px] font-label-sm uppercase tracking-widest text-[#eebe87] font-semibold drop-shadow-md">
+              <span className="text-[10px] sm:text-[11px] font-label-sm uppercase tracking-widest text-[#eebe87] font-semibold drop-shadow-md">
                 BARBELL SNATCH VECTOR
               </span>
               <button
                 onClick={handleReplay}
-                className="bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] font-label-sm text-[10px] uppercase tracking-widest px-2.5 py-1 font-bold flex items-center gap-1 transition-colors shadow-md"
+                className="bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] font-label-sm text-[9px] sm:text-[10px] uppercase tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 font-bold flex items-center gap-1 transition-colors shadow-md active:scale-95"
                 title="Replay sequence"
               >
-                <span className="material-symbols-outlined text-[14px]">replay</span>
+                <span className="material-symbols-outlined text-[13px] sm:text-[14px]">replay</span>
                 REPLAY
               </button>
             </div>
@@ -247,20 +275,20 @@ export default function Hero({ onOpenIntake }) {
         {/* PHASE 1: ZERO TEXT SCROLL HINT (Active only at beginning)       */}
         {/* ============================================================== */}
         <div
-          className="absolute inset-x-0 bottom-12 z-30 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-300"
+          className="absolute inset-x-0 bottom-8 sm:bottom-12 z-30 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-300 px-4 text-center"
           style={{
             opacity: scrollProgress < 0.15 ? 1 - scrollProgress / 0.15 : 0,
           }}
         >
-          <div className="flex flex-col items-center gap-3">
-            <span className="font-label-lg text-xs uppercase tracking-[0.35em] text-[#eebe87] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] flex items-center gap-2">
+          <div className="flex flex-col items-center gap-2.5 sm:gap-3">
+            <span className="font-label-lg text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#eebe87] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] flex items-center gap-2">
               <span className="w-2 h-2 bg-[#eebe87] animate-ping inline-block"></span>
               SCROLL TO COMMENCE // DISCIPLINE IN MOTION
             </span>
-            <div className="w-5 h-9 rounded-full border-2 border-[#eebe87]/70 flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
-              <div className="w-1.5 h-2.5 bg-[#eebe87] rounded-full animate-bounce"></div>
+            <div className="w-4 h-8 sm:w-5 sm:h-9 rounded-full border-2 border-[#eebe87]/70 flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
+              <div className="w-1 sm:w-1.5 h-2 sm:h-2.5 bg-[#eebe87] rounded-full animate-bounce"></div>
             </div>
-            <span className="font-mono text-[10px] text-[#9c8e82] tracking-widest">
+            <span className="font-mono text-[9px] sm:text-[10px] text-[#9c8e82] tracking-widest">
               FRAME {String(currentFrameNumber).padStart(3, '0')} / 181
             </span>
           </div>
@@ -268,13 +296,13 @@ export default function Hero({ onOpenIntake }) {
 
         {/* Mid-playback subtle scrub bar indicator */}
         <div
-          className="absolute bottom-4 left-6 right-6 lg:left-12 lg:right-12 z-30 pointer-events-none transition-opacity duration-300"
+          className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 lg:left-12 lg:right-12 z-30 pointer-events-none transition-opacity duration-300"
           style={{
             opacity: scrollProgress > 0.05 && scrollProgress < 0.70 ? 0.7 : 0,
           }}
         >
-          <div className="max-w-7xl mx-auto flex items-center gap-4">
-            <span className="font-mono text-[10px] text-[#eebe87] tracking-wider font-semibold">
+          <div className="max-w-7xl mx-auto flex items-center gap-3 sm:gap-4">
+            <span className="font-mono text-[9px] sm:text-[10px] text-[#eebe87] tracking-wider font-semibold">
               00:{String(currentFrameNumber).padStart(3, '0')}
             </span>
             <div className="flex-1 h-0.5 bg-[#2a2a2a] relative overflow-hidden">
@@ -283,70 +311,70 @@ export default function Hero({ onOpenIntake }) {
                 style={{ width: `${Math.min(100, (scrollProgress / 0.70) * 100)}%` }}
               />
             </div>
-            <span className="font-mono text-[10px] text-[#9c8e82] tracking-wider">
-              TOTAL 181 FPS
+            <span className="font-mono text-[9px] sm:text-[10px] text-[#9c8e82] tracking-wider">
+              181 FPS
             </span>
           </div>
         </div>
 
         {/* ============================================================== */}
-        {/* PHASE 2: HERO TEXT CLUSTER (Transitions in as video docks)     */}
+        {/* PHASE 2: HERO TEXT CLUSTER & TELEMETRY STRIP                  */}
         {/* ============================================================== */}
         <div
-          className="relative z-20 max-w-7xl w-full h-full mx-auto px-6 lg:px-12 flex flex-col justify-between pt-24 pb-8 pointer-events-none"
+          className="relative z-20 max-w-7xl w-full h-full mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-between pt-20 sm:pt-24 pb-4 sm:pb-8 pointer-events-none"
         >
-          {/* Main Grid: Left is reserved for docked video; Right holds monumental text */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1">
+          {/* Main Grid: On desktop Left is reserved for docked video; Right holds text.
+              On mobile/tablet: text appears below docked video with adaptive spacing. */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1">
             
-            {/* Left Column Spacer (matches docked video footprint) */}
-            <div className="lg:col-span-5 hidden lg:block" aria-hidden="true">
-              {/* Spacer matching video width */}
-            </div>
+            {/* Left Column Spacer on desktop (matches docked video footprint) */}
+            <div className="lg:col-span-5 hidden lg:block" aria-hidden="true" />
 
-            {/* Right Column: Monumental Hero Typography */}
+            {/* Right Column (or Mobile Stack): Monumental Hero Typography */}
             <div
-              className="lg:col-span-7 space-y-6 pt-4 lg:pt-0"
+              className="lg:col-span-7 space-y-4 sm:space-y-6 pt-2 lg:pt-0"
               style={{
+                marginTop: !isDesktop && t > 0.1 ? `${Math.round((dockHeight + 20) * t)}px` : '0px',
                 opacity: t,
-                transform: `translateX(${(1 - t) * 60}px)`,
+                transform: `translateX(${(1 - t) * (isDesktop ? 60 : 0)}px) translateY(${(1 - t) * (isDesktop ? 0 : 30)}px)`,
                 pointerEvents: t > 0.7 ? 'auto' : 'none',
                 transition: 'opacity 0.2s ease-out, transform 0.2s ease-out',
               }}
             >
               {/* Bronze Kicker Metadata */}
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 bg-[#b58a58] inline-block animate-pulse" />
-                <p className="font-label-lg text-xs tracking-[0.25em] text-[#eebe87] uppercase font-semibold">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#b58a58] inline-block animate-pulse" />
+                <p className="font-label-lg text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] text-[#eebe87] uppercase font-semibold">
                   EST. 2018 // HIGH-PERFORMANCE SANCTUARY
                 </p>
               </div>
 
               {/* Monumental Headline */}
               <div>
-                <h1 className="font-display-xl text-4xl sm:text-6xl lg:text-8xl uppercase text-[#e5e2e1] tracking-tight leading-[0.92] mb-6 font-bold">
+                <h1 className="font-display-xl text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase text-[#e5e2e1] tracking-tight leading-[0.92] mb-3 sm:mb-6 font-bold">
                   BUILT THROUGH<br />
                   <span className="text-[#b58a58] tracking-wider">DISCIPLINE.</span>
                 </h1>
-                <p className="font-body-lg text-sm sm:text-base lg:text-lg text-[#d3c4b6] max-w-xl font-light tracking-wide mb-8 leading-relaxed">
+                <p className="font-body-lg text-xs sm:text-base lg:text-lg text-[#d3c4b6] max-w-xl font-light tracking-wide mb-5 sm:mb-8 leading-relaxed line-clamp-3 sm:line-clamp-none">
                   Train with purpose. Build strength. Become harder to stop. Architectural strength culture engineered for uncompromised physiological mastery and lifelong athletic durability.
                 </p>
               </div>
 
               {/* Action Cluster */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1">
                 <button
                   onClick={() => onOpenIntake('membership')}
-                  className="inline-flex items-center justify-center bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 font-bold shadow-lg hover:shadow-[#eebe87]/20 active:scale-95"
+                  className="inline-flex items-center justify-center bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] font-label-lg text-xs sm:text-sm tracking-widest uppercase px-6 sm:px-8 py-3.5 sm:py-4 transition-all duration-200 font-bold shadow-lg hover:shadow-[#eebe87]/20 active:scale-95"
                 >
                   START YOUR JOURNEY
-                  <span className="material-symbols-outlined ml-2 text-[18px]">north_east</span>
+                  <span className="material-symbols-outlined ml-2 text-[16px] sm:text-[18px]">north_east</span>
                 </button>
                 <a
                   href="#facility"
-                  className="inline-flex items-center justify-center bg-transparent hover:bg-[#2a2a2a] text-[#e5e2e1] hover:text-[#eebe87] font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 border border-[#4f453a] hover:border-[#b58a58] transition-all duration-200 font-medium"
+                  className="inline-flex items-center justify-center bg-transparent hover:bg-[#2a2a2a] text-[#e5e2e1] hover:text-[#eebe87] font-label-lg text-xs sm:text-sm tracking-widest uppercase px-6 sm:px-8 py-3.5 sm:py-4 border border-[#4f453a] hover:border-[#b58a58] transition-all duration-200 font-medium"
                 >
                   EXPLORE THE FACILITY
-                  <span className="material-symbols-outlined ml-2 text-[18px]">arrow_downward</span>
+                  <span className="material-symbols-outlined ml-2 text-[16px] sm:text-[18px]">arrow_downward</span>
                 </a>
               </div>
             </div>
@@ -356,43 +384,43 @@ export default function Hero({ onOpenIntake }) {
           {/* TELEMETRY STATS STRIP (Slides up smoothly)                    */}
           {/* ============================================================== */}
           <div
-            className="w-full bg-[#1c1b1b]/90 backdrop-blur-md border border-[#2a2a2a] mt-6 pointer-events-auto"
+            className="w-full bg-[#1c1b1b]/90 backdrop-blur-md border border-[#2a2a2a] mt-3 sm:mt-6 pointer-events-auto"
             style={{
               opacity: t,
-              transform: `translateY(${(1 - t) * 40}px)`,
+              transform: `translateY(${(1 - t) * 30}px)`,
               transition: 'opacity 0.2s ease-out, transform 0.2s ease-out',
             }}
           >
-            <div className="px-6 lg:px-8 py-4 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-3 sm:pl-4 group hover:border-[#eebe87] transition-colors">
-                <span className="font-headline-lg text-lg sm:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
+            <div className="px-3 sm:px-6 lg:px-8 py-2.5 sm:py-4 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+                <span className="font-headline-lg text-base sm:text-xl lg:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
                   12,000 SQ FT
                 </span>
-                <span className="font-label-sm text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
+                <span className="font-label-sm text-[9px] sm:text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
                   Architectural Facility
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-3 sm:pl-4 group hover:border-[#eebe87] transition-colors">
-                <span className="font-headline-lg text-lg sm:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+                <span className="font-headline-lg text-base sm:text-xl lg:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
                   1 : 4
                 </span>
-                <span className="font-label-sm text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
+                <span className="font-label-sm text-[9px] sm:text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
                   Coach to Athlete Ratio
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-3 sm:pl-4 group hover:border-[#eebe87] transition-colors">
-                <span className="font-headline-lg text-lg sm:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+                <span className="font-headline-lg text-base sm:text-xl lg:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
                   100%
                 </span>
-                <span className="font-label-sm text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
+                <span className="font-label-sm text-[9px] sm:text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
                   Calibrated Equipment
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-3 sm:pl-4 group hover:border-[#eebe87] transition-colors">
-                <span className="font-headline-lg text-lg sm:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+                <span className="font-headline-lg text-base sm:text-xl lg:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
                   24 / 7
                 </span>
-                <span className="font-label-sm text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
+                <span className="font-label-sm text-[9px] sm:text-[10px] uppercase text-[#9c8e82] tracking-widest mt-0.5">
                   Biometric Keycard Access
                 </span>
               </div>

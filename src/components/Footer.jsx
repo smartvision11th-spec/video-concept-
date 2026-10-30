@@ -13,18 +13,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#0e0e0e] border-t border-[#2a2a2a] pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-12 lg:gap-x-12 pb-16 border-b border-[#2a2a2a]">
+    <footer className="w-full bg-[#0e0e0e] border-t border-[#2a2a2a] pt-12 sm:pt-16 pb-10 sm:pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 lg:gap-x-12 pb-12 sm:pb-16 border-b border-[#2a2a2a]">
           
           {/* Brand & Headquarters Info */}
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-5 sm:space-y-6">
+            <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-sm bg-[#eebe87] flex items-center justify-center font-display-xl font-bold text-[#472a01] text-lg">
                   IF
                 </div>
-                <span className="font-headline-sm text-lg uppercase tracking-widest text-[#e5e2e1] font-semibold">
+                <span className="font-headline-sm text-base sm:text-lg uppercase tracking-widest text-[#e5e2e1] font-semibold">
                   IRON FITNESS
                 </span>
               </div>
@@ -33,7 +33,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               <p className="font-label-sm text-[10px] uppercase tracking-widest text-[#9c8e82]">
                 HEADQUARTERS
               </p>
@@ -43,18 +43,18 @@ export default function Footer() {
               <p className="font-body-sm text-xs text-[#d3c4b6]">
                 contact@irongym.com // +1 (555) 740-4766
               </p>
-              <p className="font-label-sm text-[10px] tracking-widest text-[#9c8e82] pt-1 font-mono">
+              <p className="font-label-sm text-[10px] tracking-widest text-[#9c8e82] pt-0.5 font-mono">
                 MON-FRI: 05:00 - 23:00 | SAT-SUN: 07:00 - 21:00
               </p>
             </div>
           </div>
 
           {/* Navigation Column */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3 sm:space-y-4">
             <h4 className="font-headline-sm text-sm uppercase text-[#e5e2e1] font-semibold tracking-wider">
               NAVIGATION
             </h4>
-            <ul className="space-y-2.5 font-label-md text-xs uppercase tracking-wider text-[#d3c4b6]">
+            <ul className="space-y-2 sm:space-y-2.5 font-label-md text-xs uppercase tracking-wider text-[#d3c4b6]">
               <li><a className="hover:text-[#eebe87] transition-colors" href="#philosophy">Philosophy</a></li>
               <li><a className="hover:text-[#eebe87] transition-colors" href="#disciplines">Disciplines</a></li>
               <li><a className="hover:text-[#eebe87] transition-colors" href="#facility">Facility</a></li>
@@ -64,11 +64,11 @@ export default function Footer() {
           </div>
 
           {/* Programs Column */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3 sm:space-y-4">
             <h4 className="font-headline-sm text-sm uppercase text-[#e5e2e1] font-semibold tracking-wider">
               PROGRAMS
             </h4>
-            <ul className="space-y-2.5 font-label-md text-xs uppercase tracking-wider text-[#d3c4b6]">
+            <ul className="space-y-2 sm:space-y-2.5 font-label-md text-xs uppercase tracking-wider text-[#d3c4b6]">
               <li><a className="hover:text-[#eebe87] transition-colors" href="#disciplines">Olympic Lifting</a></li>
               <li><a className="hover:text-[#eebe87] transition-colors" href="#disciplines">Hypertrophy Block</a></li>
               <li><a className="hover:text-[#eebe87] transition-colors" href="#disciplines">Kinetic Conditioning</a></li>
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           {/* Dispatch / Newsletter Subscription */}
-          <div className="lg:col-span-4 space-y-5">
+          <div className="lg:col-span-4 space-y-4 sm:space-y-5">
             <h4 className="font-headline-sm text-sm uppercase text-[#e5e2e1] font-semibold tracking-wider">
               DISPATCH // NEWSLETTER
             </h4>
@@ -98,28 +98,28 @@ export default function Footer() {
                   placeholder="ENTER EMAIL ARCHIVE"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full bg-[#201f1f] px-4 py-3 font-label-md text-xs text-[#e5e2e1] placeholder:text-[#4f453a] focus:outline-none"
+                  className="w-full bg-[#201f1f] px-3.5 sm:px-4 py-2.5 sm:py-3 font-label-md text-xs text-[#e5e2e1] placeholder:text-[#4f453a] focus:outline-none"
                 />
                 <button
                   type="submit"
                   aria-label="Subscribe to dispatch"
-                  className="bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] px-5 font-label-md text-xs uppercase tracking-widest transition-colors flex items-center justify-center font-bold"
+                  className="bg-[#b58a58] hover:bg-[#eebe87] text-[#402500] px-4 sm:px-5 font-label-md text-xs uppercase tracking-widest transition-colors flex items-center justify-center font-bold active:scale-95"
                 >
                   <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </button>
               </form>
             )}
 
-            <div className="flex items-center gap-6 pt-2">
-              <a href="#" className="font-label-sm text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
+            <div className="flex items-center gap-4 sm:gap-6 pt-1 sm:pt-2">
+              <a href="#" className="font-label-sm text-[10px] sm:text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[14px]">tag</span>
                 INSTAGRAM
               </a>
-              <a href="#" className="font-label-sm text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
+              <a href="#" className="font-label-sm text-[10px] sm:text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[14px]">play_circle</span>
                 YOUTUBE
               </a>
-              <a href="#" className="font-label-sm text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
+              <a href="#" className="font-label-sm text-[10px] sm:text-[11px] uppercase tracking-widest text-[#d3c4b6] hover:text-[#eebe87] transition-colors flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[14px]">directions_run</span>
                 STRAVA
               </a>
@@ -129,9 +129,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal Strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-label-sm text-[10px] uppercase tracking-widest text-[#9c8e82]">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 font-label-sm text-[9px] sm:text-[10px] uppercase tracking-widest text-[#9c8e82]">
           <p>© {new Date().getFullYear()} IRON FITNESS GYM. ARCHITECTURAL PERFORMANCE SYSTEMS. ALL RIGHTS RESERVED.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a href="#" className="hover:text-[#e5e2e1] transition-colors">TERMS // GOVERNANCE</a>
             <a href="#" className="hover:text-[#e5e2e1] transition-colors">PRIVACY PROTOCOL</a>
             <a href="#" className="hover:text-[#e5e2e1] transition-colors">SAFETY DIRECTIVE</a>
