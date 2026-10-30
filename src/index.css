@@ -6,6 +6,8 @@
   html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow-x: hidden;
     background-color: #0e0e0e;
     color: #e5e2e1;
     scroll-behavior: smooth;
@@ -62,27 +64,17 @@
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(181, 138, 88, 0.4);
 }
 
-/* Subtle bronze ambient pulse */
-@keyframes subtlePulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.02); }
+/* Brutalist raw edge and grid lines */
+.grid-line-x {
+  background-image: linear-gradient(to right, #4f453a 33%, rgba(255,255,255,0) 0%);
+  background-position: bottom;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
 }
 
-.animate-glow {
-  animation: subtlePulse 5s ease-in-out infinite;
-}
-
-/* Shimmer metallic text */
-@keyframes bronzeShimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.shimmer-text {
-  background: linear-gradient(90deg, #e5e2e1 0%, #eebe87 50%, #e5e2e1 100%);
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: bronzeShimmer 8s linear infinite;
+.grid-line-y {
+  background-image: linear-gradient(to bottom, #4f453a 33%, rgba(255,255,255,0) 0%);
+  background-position: right;
+  background-size: 1px 8px;
+  background-repeat: repeat-y;
 }

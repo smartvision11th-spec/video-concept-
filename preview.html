@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark scroll-smooth" lang="en">
+<html class="dark scroll-smooth overflow-x-hidden" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -82,7 +82,7 @@
     };
   </script>
 </head>
-<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden">
 
   <!-- ==================== HEADER ==================== -->
   <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container-high">
@@ -984,7 +984,8 @@
       ctx.imageSmoothingQuality = 'high';
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
-      const scale = Math.max(dw / iw, dh / ih);
+      const isMobile = window.innerWidth < 768;
+      const scale = isMobile ? Math.min(dw / iw, dh / ih) : Math.max(dw / iw, dh / ih);
       const nw = Math.round(iw * scale);
       const nh = Math.round(ih * scale);
       const cx = Math.round((dw - nw) / 2);
@@ -1023,27 +1024,65 @@
 
       // 3. Docking Morph Transition (Phase 2: 0.70 to 1.0)
       const t = Math.max(0, Math.min(1, (p - 0.70) / 0.30));
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
       const isDesktop = window.innerWidth >= 1024;
-      const maxW = 1280;
-      const marginLeft = Math.max(24, (window.innerWidth - maxW) / 2 + (isDesktop ? 48 : 24));
-      const dockW = isDesktop ? Math.min(500, window.innerWidth * 0.42) : window.innerWidth - 48;
-      const dockH = dockW * (480 / 868);
-      const dockL = isDesktop ? marginLeft : 24;
-      const dockT = isDesktop ? window.innerHeight * 0.22 : 95;
 
-      const curL = 0 + (dockL - 0) * t;
-      const curT = 0 + (dockT - 0) * t;
-      const curW = window.innerWidth + (dockW - window.innerWidth) * t;
-      const curH = window.innerHeight + (dockH - window.innerHeight) * t;
+      const winW = window.innerWidth;
+      const winH = window.innerHeight;
+      const FRAME_ASPECT = 480 / 868;
+
+      let initW, initH, initL, initT;
+      let dockW, dockH, dockL, dockT;
+
+      if (isDesktop) {
+        initW = winW;
+        initH = winH;
+        initL = 0;
+        initT = 0;
+
+        const maxW = 1280;
+        const marginLeft = Math.max(24, (winW - maxW) / 2 + 48);
+        dockW = Math.min(540, winW * 0.40);
+        dockH = Math.round(dockW * FRAME_ASPECT);
+        dockL = marginLeft;
+        dockT = Math.max(96, (winH - dockH - 110) / 2);
+      } else if (isTablet) {
+        initW = winW;
+        initH = Math.min(winH, Math.round(winW * FRAME_ASPECT));
+        initL = 0;
+        initT = Math.max(76, Math.round((winH - initH) / 2));
+
+        dockW = Math.min(380, Math.round(winW * 0.48));
+        dockH = Math.round(dockW * FRAME_ASPECT);
+        dockL = 24;
+        dockT = 80;
+      } else {
+        initW = winW;
+        initH = Math.round(initW * FRAME_ASPECT);
+        initL = 0;
+        initT = Math.max(70, Math.round((winH - initH) / 2));
+
+        dockW = Math.min(270, Math.round(winW * 0.68));
+        dockH = Math.round(dockW * FRAME_ASPECT);
+        dockL = 16;
+        dockT = 72;
+      }
+
+      const curL = initL + (dockL - initL) * t;
+      const curT = initT + (dockT - initT) * t;
+      const curW = initW + (dockW - initW) * t;
+      const curH = initH + (dockH - initH) * t;
 
       if (videoContainer) {
         videoContainer.style.left = `${curL}px`;
         videoContainer.style.top = `${curT}px`;
         videoContainer.style.width = `${curW}px`;
         videoContainer.style.height = `${curH}px`;
-        videoContainer.style.borderRadius = `${t * 4}px`;
-        videoContainer.style.border = t > 0.05 ? '1px solid #b58a58' : 'none';
+        videoContainer.style.borderRadius = isMobile ? (t > 0.05 ? '6px' : '0px') : `${t * 6}px`;
+        videoContainer.style.border = t > 0.05 ? '1px solid #b58a58' : (isMobile ? '1px solid rgba(79,69,58,0.3)' : 'none');
         videoContainer.style.boxShadow = t > 0.05 ? '0 25px 60px rgba(0,0,0,0.95)' : 'none';
+      }
       }
 
       if (videoDockBadge) {
