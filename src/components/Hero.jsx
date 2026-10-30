@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const TOTAL_FRAMES = 181;
-const FRAME_ASPECT = 480 / 868; // exact aspect ratio of new 868x480 video frames (~0.552995)
+const VIDEO_WIDTH = 868;
+const VIDEO_HEIGHT = 480;
+const FRAME_ASPECT = VIDEO_HEIGHT / VIDEO_WIDTH; // 480 / 868 ≈ 0.552995
 
 export default function Hero({ onOpenIntake }) {
   const containerRef = useRef(null);
@@ -16,10 +18,10 @@ export default function Hero({ onOpenIntake }) {
   const currentProgressRef = useRef(0);
   const animationFrameIdRef = useRef(null);
 
-  // Window geometry for smooth responsive layout morphing
+  // Window geometry synchronized with viewport
   const [dimensions, setDimensions] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 1440,
-    height: typeof window !== 'undefined' ? window.innerHeight : 900,
+    width: typeof window !== 'undefined' ? window.innerWidth : VIDEO_WIDTH,
+    height: typeof window !== 'undefined' ? window.innerHeight : VIDEO_HEIGHT,
   });
 
   // Track window resize and orientation change immediately
@@ -102,7 +104,8 @@ export default function Hero({ onOpenIntake }) {
   const isTablet = dimensions.width >= 768 && dimensions.width < 1024;
   const isMobile = dimensions.width < 768;
 
-  // Draw current frame to canvas with crisp retina filtering and guaranteed containment
+  // Draw current frame to canvas:
+  // Native resolution 868 x 480 is strictly preserved for 1:1 pixel rendering with zero crop and zero distortion
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -118,88 +121,53 @@ export default function Hero({ onOpenIntake }) {
 
     const img = imagesRef.current[frameIndex];
     if (img && img.complete && img.naturalWidth > 0) {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const displayWidth = Math.round(canvas.clientWidth);
-      const displayHeight = Math.round(canvas.clientHeight);
-
-      if (canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr) {
-        canvas.width = displayWidth * dpr;
-        canvas.height = displayHeight * dpr;
+      if (canvas.width !== VIDEO_WIDTH || canvas.height !== VIDEO_HEIGHT) {
+        canvas.width = VIDEO_WIDTH;
+        canvas.height = VIDEO_HEIGHT;
       }
 
-      ctx.save();
-      ctx.scale(dpr, dpr);
-
-      // Force highest-quality bicubic resampling filter
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      const cw = displayWidth;
-      const ch = displayHeight;
-      const iw = img.naturalWidth;
-      const ih = img.naturalHeight;
-
-      // On mobile screens, use Math.min (contain) so the video frame NEVER gets clipped or goes out of frame!
-      // On desktop widescreen, use Math.max (cover) to immerse the wide monitor.
-      const scale = isMobile ? Math.min(cw / iw, ch / ih) : Math.max(cw / iw, ch / ih);
-      const nw = Math.round(iw * scale);
-      const nh = Math.round(ih * scale);
-      const cx = Math.round((cw - nw) / 2);
-      const cy = Math.round((ch - nh) / 2);
-
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, cx, cy, nw, nh);
-      ctx.restore();
+      ctx.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
+      ctx.drawImage(img, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
     }
-  }, [scrollProgress, imagesLoaded, dimensions, isMobile]);
+  }, [scrollProgress, imagesLoaded]);
 
   // Phase transition calculation (0.70 to 1.0)
   const isTransitioning = scrollProgress >= 0.70;
   const t = Math.max(0, Math.min(1, (scrollProgress - 0.70) / 0.30));
 
-  // Adaptive geometry calculations:
-  // On mobile (< 768px):
-  //  - Initial state (t = 0): centered full-width video frame with true aspect ratio. 100% visible, 0% cut off.
-  //  - Docked state (t = 1): shrinks smoothly into the left corner with exact aspect ratio.
-  //  - Zero pixels go out of the mobile frame at any point during scroll!
+  // =========================================================================
+  // SYNCHRONIZED VIDEO & HERO SECTION GEOMETRY (868 x 480 ASPECT RATIO)
+  // =========================================================================
   const winW = dimensions.width;
   const winH = dimensions.height;
 
-  let initWidth, initHeight, initLeft, initTop;
+  // Phase 1: Initial full video frame sizing.
+  // Synchronized directly with 868:480 so the entire video frame fits the viewport comfortably without cropping.
+  const scale = Math.min(winW / VIDEO_WIDTH, (winH - (isMobile ? 110 : 80)) / VIDEO_HEIGHT);
+  const initWidth = Math.round(VIDEO_WIDTH * scale);
+  const initHeight = Math.round(VIDEO_HEIGHT * scale);
+  const initLeft = Math.round((winW - initWidth) / 2);
+  const initTop = Math.round((winH - initHeight) / 2);
+
+  // Phase 2: Docked corner video frame sizing.
+  // Strictly maintains 868:480 aspect ratio when shrunk into the corner dock.
   let dockWidth, dockHeight, dockLeft, dockTop;
 
   if (isDesktop) {
-    // Desktop (>= 1024px): Full viewport cover initially, docks to left side-by-side with hero text
-    initWidth = winW;
-    initHeight = winH;
-    initLeft = 0;
-    initTop = 0;
-
-    const maxContainerWidth = 1280;
-    const containerMarginLeft = Math.max(24, (winW - maxContainerWidth) / 2 + 48);
-    dockWidth = Math.min(540, winW * 0.40);
+    dockWidth = Math.min(520, Math.round(winW * 0.38));
     dockHeight = Math.round(dockWidth * FRAME_ASPECT);
-    dockLeft = containerMarginLeft;
-    dockTop = Math.max(96, (winH - dockHeight - 110) / 2);
+    dockLeft = Math.max(32, Math.round((winW - 1280) / 2 + 48));
+    dockTop = Math.max(90, Math.round((winH - dockHeight - 90) / 2));
   } else if (isTablet) {
-    // Tablet (768px - 1023px): Centered widescreen initial, docks to upper-left
-    initWidth = winW;
-    initHeight = Math.min(winH, Math.round(winW * FRAME_ASPECT));
-    initLeft = 0;
-    initTop = Math.max(76, Math.round((winH - initHeight) / 2));
-
-    dockWidth = Math.min(380, Math.round(winW * 0.48));
+    dockWidth = Math.min(380, Math.round(winW * 0.46));
     dockHeight = Math.round(dockWidth * FRAME_ASPECT);
     dockLeft = 24;
     dockTop = 80;
   } else {
-    // Mobile (< 768px): Centered 100% contained video frame, docks into left corner with true aspect ratio
-    initWidth = winW;
-    initHeight = Math.round(initWidth * FRAME_ASPECT);
-    initLeft = 0;
-    initTop = Math.max(70, Math.round((winH - initHeight) / 2));
-
-    dockWidth = Math.min(270, Math.round(winW * 0.68));
+    dockWidth = Math.min(260, Math.round(winW * 0.65));
     dockHeight = Math.round(dockWidth * FRAME_ASPECT);
     dockLeft = 16;
     dockTop = 72;
@@ -210,7 +178,7 @@ export default function Hero({ onOpenIntake }) {
   const curTop = initTop + (dockTop - initTop) * t;
   const curWidth = initWidth + (dockWidth - initWidth) * t;
   const curHeight = initHeight + (dockHeight - initHeight) * t;
-  const curBorderRadius = isMobile ? (t > 0.05 ? 6 : 0) : t * 6;
+  const curBorderRadius = isMobile ? (t > 0.05 ? 6 : 4) : Math.min(8, 4 + t * 4);
 
   const currentFrameNumber = Math.min(
     TOTAL_FRAMES,
@@ -230,24 +198,22 @@ export default function Hero({ onOpenIntake }) {
     <section
       ref={containerRef}
       className="relative w-full bg-[#0e0e0e] overflow-x-hidden"
-      style={{ height: '340vh' }} // Extended scroll track for comfortable, synchronised frame playback
+      style={{ height: '340vh' }} // Extended scroll track for synchronized frame playback
     >
       {/* Sticky viewport frame container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0e0e0e]">
+      <div className="sticky top-0 h-screen sm:h-[100dvh] w-full overflow-hidden bg-[#0e0e0e]">
         
-        {/* Subtle atmospheric ambient glow during mobile playback */}
+        {/* Subtle atmospheric ambient glow */}
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(181,138,88,0.06)_0%,transparent_75%)]" />
 
         {/* ============================================================== */}
-        {/* DYNAMIC SCROLL VIDEO CONTAINER (FULL/CONTAINED -> DOCKED CORNER)*/}
+        {/* DYNAMIC SCROLL VIDEO CONTAINER (SYNCHRONIZED WITH 868x480)     */}
         {/* ============================================================== */}
         <div
           className={`absolute overflow-hidden z-20 transition-shadow duration-300 ${
             t > 0.05
               ? 'border border-[#b58a58] shadow-[0_25px_60px_rgba(0,0,0,0.95)]'
-              : isMobile
-              ? 'border-y border-[#4f453a]/30 shadow-[0_20px_50px_rgba(0,0,0,0.9)]'
-              : 'border-0 shadow-none'
+              : 'border border-[#4f453a]/40 shadow-[0_20px_50px_rgba(0,0,0,0.85)]'
           }`}
           style={{
             left: `${curLeft}px`,
@@ -259,7 +225,7 @@ export default function Hero({ onOpenIntake }) {
         >
           <canvas
             ref={canvasRef}
-            className="w-full h-full block bg-[#0e0e0e]"
+            className="w-full h-full block bg-[#0e0e0e] object-contain"
             style={{ imageRendering: 'auto' }}
           />
 
@@ -415,7 +381,7 @@ export default function Hero({ onOpenIntake }) {
             }}
           >
             <div className="px-3 sm:px-6 lg:px-8 py-2 sm:py-4 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
                 <span className="font-headline-lg text-xs sm:text-xl lg:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
                   12,000 SQ FT
                 </span>
@@ -423,7 +389,7 @@ export default function Hero({ onOpenIntake }) {
                   Architectural Facility
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
                 <span className="font-headline-lg text-xs sm:text-xl lg:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
                   1 : 4
                 </span>
@@ -431,7 +397,7 @@ export default function Hero({ onOpenIntake }) {
                   Coach to Athlete Ratio
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
                 <span className="font-headline-lg text-xs sm:text-xl lg:text-2xl uppercase text-[#e5e2e1] font-semibold tracking-wider">
                   100%
                 </span>
@@ -439,7 +405,7 @@ export default function Hero({ onOpenIntake }) {
                   Calibrated Equipment
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2 sm:pl-4 group hover:border-[#eebe87] transition-colors">
+              <div className="flex flex-col border-l border-[#4f453a]/60 pl-2.5 sm:pl-4 group hover:border-[#eebe87] transition-colors">
                 <span className="font-headline-lg text-xs sm:text-xl lg:text-2xl uppercase text-[#eebe87] font-semibold tracking-wider">
                   24 / 7
                 </span>
