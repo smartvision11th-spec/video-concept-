@@ -170,64 +170,63 @@
         </div>
 
         <!-- PHASE 2: HERO TEXT CLUSTER & TELEMETRY STRIP -->
-        <div class="relative z-20 max-w-7xl w-full h-full mx-auto px-6 lg:px-12 flex flex-col justify-between pt-24 pb-8 pointer-events-none">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1">
+        <div class="relative z-20 max-w-7xl w-full h-full mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-between pt-16 sm:pt-20 pb-2.5 sm:pb-4 pointer-events-none">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8 items-center flex-1 my-auto">
             <div class="lg:col-span-5 hidden lg:block" aria-hidden="true"></div>
             
-            <div id="heroTextCluster" class="lg:col-span-7 space-y-6 pt-4 lg:pt-0 opacity-0 pointer-events-none transition-all duration-300" style="transform: translateX(40px);">
-              <div class="flex items-center gap-3">
-                <span class="w-2.5 h-2.5 bg-primary-container inline-block animate-pulse"></span>
-                <p class="font-label-lg text-xs tracking-[0.25em] text-primary uppercase font-semibold">
+            <div id="heroTextCluster" class="lg:col-span-7 space-y-2 sm:space-y-3.5 pt-0.5 lg:pt-0 opacity-0 pointer-events-none transition-all duration-300" style="transform: translateX(40px);">
+              <div class="flex items-center gap-2 sm:gap-2.5">
+                <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-container inline-block animate-pulse"></span>
+                <p class="font-label-lg text-[8.5px] sm:text-xs tracking-[0.18em] sm:tracking-[0.25em] text-primary uppercase font-semibold">
                   EST. 2018 // HIGH-PERFORMANCE SANCTUARY
                 </p>
               </div>
 
               <div>
-                <h1 class="font-display-xl text-4xl sm:text-6xl lg:text-8xl uppercase text-on-surface tracking-tight leading-[0.92] mb-6 font-bold">
+                <h1 class="font-display-xl text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase text-on-surface tracking-tight leading-[0.92] mb-1 sm:mb-2.5 font-bold">
                   BUILT THROUGH<br/>
                   <span class="text-primary-container tracking-wider">DISCIPLINE.</span>
                 </h1>
-                <p class="font-body-lg text-sm sm:text-base lg:text-lg text-on-surface-variant max-w-xl font-light tracking-wide mb-8 leading-relaxed">
+                <p class="font-body-lg text-xs sm:text-sm lg:text-base text-on-surface-variant max-w-xl font-light tracking-wide mb-2.5 sm:mb-4 lg:mb-5 leading-relaxed line-clamp-2 sm:line-clamp-2 lg:line-clamp-3">
                   Train with purpose. Build strength. Become harder to stop. Architectural strength culture engineered for uncompromised physiological mastery and lifelong athletic durability.
                 </p>
               </div>
 
-              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
-                <button onclick="openIntakeModal('membership', 'Performance')" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 font-bold shadow-lg">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 pt-0.5">
+                <button onclick="openIntakeModal('membership', 'Performance')" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary-container font-label-lg text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-200 font-bold shadow-lg">
                   START YOUR JOURNEY
-                  <span class="material-symbols-outlined ml-2 text-[18px]">north_east</span>
+                  <span class="material-symbols-outlined ml-2 text-[15px] sm:text-[17px]">north_east</span>
                 </button>
-                <a class="inline-flex items-center justify-center bg-transparent hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg text-xs sm:text-sm tracking-widest uppercase px-8 py-4 border border-outline-variant hover:border-primary-container transition-all duration-200 font-medium" href="#facility">
+                <a class="inline-flex items-center justify-center bg-transparent hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg text-xs sm:text-sm tracking-widest uppercase px-4 sm:px-6 py-2.5 sm:py-3 border border-outline-variant hover:border-primary-container transition-all duration-200 font-medium text-center" href="#facility">
                   EXPLORE THE FACILITY
-                  <span class="material-symbols-outlined ml-2 text-[18px]">arrow_downward</span>
+                  <span class="material-symbols-outlined ml-2 text-[15px] sm:text-[17px]">arrow_downward</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Bottom Telemetry Strip -->
-          <div id="telemetryStrip" class="w-full bg-surface-container-low/90 backdrop-blur-md border border-surface-container-high mt-6 opacity-0 pointer-events-none transition-all duration-300" style="transform: translateY(30px);">
-            <div class="px-6 lg:px-8 py-4 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
-                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-on-surface font-semibold tracking-wider">12,000 SQ FT</span>
-                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Architectural Facility</span>
+          <!-- Bottom Telemetry Strip (Cleanly visible below Explore Facility) -->
+          <div id="telemetryStrip" class="w-full bg-surface-container-low/95 backdrop-blur-md border border-surface-container-high mt-2 sm:mt-3 lg:mt-4 opacity-0 pointer-events-auto transition-all duration-300 shadow-xl" style="transform: translateY(20px);">
+            <div class="px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
+              <div class="flex flex-col border-l border-outline-variant/60 pl-2.5 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-xs sm:text-base lg:text-xl uppercase text-on-surface font-semibold tracking-wider">12,000 SQ FT</span>
+                <span class="font-label-sm text-[8px] sm:text-[9px] lg:text-[10px] uppercase text-outline tracking-widest mt-0.5">Architectural Facility</span>
               </div>
-              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
-                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-primary font-semibold tracking-wider">1 : 4</span>
-                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Coach to Athlete Ratio</span>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-2.5 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-xs sm:text-base lg:text-xl uppercase text-primary font-semibold tracking-wider">1 : 4</span>
+                <span class="font-label-sm text-[8px] sm:text-[9px] lg:text-[10px] uppercase text-outline tracking-widest mt-0.5">Coach to Athlete Ratio</span>
               </div>
-              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
-                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-on-surface font-semibold tracking-wider">100%</span>
-                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Calibrated Equipment</span>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-2.5 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-xs sm:text-base lg:text-xl uppercase text-on-surface font-semibold tracking-wider">100%</span>
+                <span class="font-label-sm text-[8px] sm:text-[9px] lg:text-[10px] uppercase text-outline tracking-widest mt-0.5">Calibrated Equipment</span>
               </div>
-              <div class="flex flex-col border-l border-outline-variant/60 pl-3 sm:pl-4 group hover:border-primary transition-colors">
-                <span class="font-headline-lg text-lg sm:text-2xl uppercase text-primary font-semibold tracking-wider">24 / 7</span>
-                <span class="font-label-sm text-[10px] uppercase text-outline tracking-widest mt-0.5">Biometric Keycard Access</span>
+              <div class="flex flex-col border-l border-outline-variant/60 pl-2.5 sm:pl-4 group hover:border-primary transition-colors">
+                <span class="font-headline-lg text-xs sm:text-base lg:text-xl uppercase text-primary font-semibold tracking-wider">24 / 7</span>
+                <span class="font-label-sm text-[8px] sm:text-[9px] lg:text-[10px] uppercase text-outline tracking-widest mt-0.5">Biometric Access</span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -1028,17 +1027,17 @@
 
       let dockW, dockH, dockL, dockT;
       if (isDesktop) {
-        dockW = Math.min(520, Math.round(winW * 0.38));
+        dockW = Math.min(480, Math.round(winW * 0.35));
         dockH = Math.round(dockW * FRAME_ASPECT);
         dockL = Math.max(32, Math.round((winW - 1280) / 2 + 48));
         dockT = Math.max(90, Math.round((winH - dockH - 90) / 2));
       } else if (isTablet) {
-        dockW = Math.min(380, Math.round(winW * 0.46));
+        dockW = Math.min(340, Math.round(winW * 0.44));
         dockH = Math.round(dockW * FRAME_ASPECT);
         dockL = 24;
         dockT = 80;
       } else {
-        dockW = Math.min(260, Math.round(winW * 0.65));
+        dockW = Math.min(220, Math.round(winW * 0.58));
         dockH = Math.round(dockW * FRAME_ASPECT);
         dockL = 16;
         dockT = 72;
